@@ -1,0 +1,31 @@
+{
+  "name": "who-makes-coffee-today-v1",
+  "version": "1.0.0",
+  "description": "Tells you who has to make coffee today.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "pug": "^2.0.3",
+    "mongoose": "^5.5.6",
+    "express-session": "^1.16.1",
+    "helmet": "^3.18.0"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/hello-express"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express",
+    "pug",
+    "mongoose",
+    "express-session"
+  ]
+}
