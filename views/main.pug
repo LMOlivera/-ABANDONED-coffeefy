@@ -10,7 +10,8 @@ html(lang="en")
          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
          crossorigin="anonymous")
-    link(href='./style.css', rel='stylesheet')         
+    link(href='./style.css', rel='stylesheet')    
+    link(rel="manifest" href="..public/manifest.json")
     script(src="/login-signup.js" defer)
     
   body
@@ -28,9 +29,9 @@ html(lang="en")
     main
       div(class="container" id="container")
         div(style="display: flex;")
-          div(id="makers-box" style="margin-right: 10px;")
+          div(id="makers-box")
             h1 Makers
-            div(id="makers-list")
+            div(id="main-makers-list")
               ul
                 each maker in makers
                   if maker.active==true
@@ -49,5 +50,6 @@ html(lang="en")
                   button(disabled) #{today} has already made coffee today
                 else
                   p Today #{today} makes coffee!
-                  a(href=("/main/mark?today=" + today))
-                    button #{today} has made coffee
+                  form(action=("/main/mark?today=" + today) method="post")
+                    input(type="password" name="password" placeholder= today + "'s password")
+                    input(type="submit" value= today + " has made coffee")

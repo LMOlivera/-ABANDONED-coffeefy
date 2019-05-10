@@ -20,6 +20,7 @@ var accountSchema = new Schema({
   password: {type: String, required: true},
   makers: [{
     name: {type: String, unique: true},
+    password: {type: String, required: true},
     active: {type: Boolean}    
   }],
   last: {
@@ -144,7 +145,7 @@ app.get('/main', (req, res) =>{
             let makers = []
             data["makers"].forEach((maker)=>{
               var m = {};
-              m["name"] = maker.name;
+              m["name"] = "- " + maker.name;
               m["active"] = maker.active;
               makers.push(m);
             });
@@ -152,7 +153,7 @@ app.get('/main', (req, res) =>{
             let next = false;
             let nextMaker;
             for(let i = 0; i<makers.length; i++) {
-              let m = makers[i].name;
+              let m = makers[i].name.slice(2, makers[i].length);;
               if (next==true) {
                 if (makers[i].active == true) {
                   nextMaker = m;
@@ -177,14 +178,21 @@ app.get('/main', (req, res) =>{
   }
 });
 
-app.get('/main/mark', (req, res) =>{
+app.post('/main/mark', (req, res) =>{
   let today = {name: req.query.today, date: new Date().toDateString()};
-  Account.findOneAndUpdate({username: req.session.user['username']},
+  let maker = {name: req.query.today, password: req.body.password}
+  Account.findOneAndUpdate({username: req.session.user['username'],
+                           "makers.name": {"$in": [maker.name]},
+                           "makers.password": {"$in": [maker.password]}},
                            {last: today},
                            (err, data)=>{
       if (err) {
-
+        res.json({error: "Something bad happened :c"});
       }else{
+        //Check maker's name and password
+        console.log(data);
+        
+        
         res.redirect('/main');
       }
   });
@@ -217,82 +225,77 @@ app.get('/main/makers', (req, res) =>{
 app.post('/main/makers', (req, res) =>{
   if (req.session.loggedIn==false) {
     res.redirect('/?exists=false');
-  }
-  let newMaker = req.body.newMaker;
-  Account.findOne({username: req.session.user['username']})
-  .exec((err, data)=> {
-    data.makers.push({name: newMaker, active: true});
-    Account.findOneAndUpdate({username: req.session.user['username']},
-                             {makers: data.makers},
-                             (err, data)=>{
+  }else{
+    if (req.body.action == "add") {
+      let newMaker = req.body.newMaker;
+      let newPassword = req.body.newPassword;
+      Account.findOne({username: req.session.user['username']})
+      .exec((err, data)=> {
+        data.makers.push({name: newMaker, password: newPassword, active: true});
+        Account.findOneAndUpdate({username: req.session.user['username']},
+                                 {makers: data.makers},
+                                 (err, data)=>{
+            if (err) {
+
+            }else{
+              res.redirect('/main/makers');
+            }
+        });
+      });
+    }else if(req.body.action == "changeActive"){
+      let makerToChangeActive = req.body.newMaker;
+      Account.findOne({username: req.session.user['username']})
+      .exec((err, data)=> {
         if (err) {
-        
-        }else{
           res.redirect('/main/makers');
-        }
-    });
-  });
-});
+        }else{
+          let makers = [];
+          data.makers.map((maker)=>{
+            if (maker.name == makerToChangeActive) {
+              (maker.active == true ? maker.active = false : maker.active = true);
+            }
+            makers.push(maker);
+          });
+          let maker = {name: req.body.newMaker, password: req.body.newPassword}
+          Account.findOneAndUpdate({username: req.session.user['username'],
+                                   "makers.name": {"$in": [maker.name]},
+                                   "makers.password": {"$in": [maker.password]}},
+                                   {makers: makers},
+                                   (err, data)=>{
+              if (err) {
 
-app.get('/main/makers/changeActive', (req, res) => {
-  if (req.session.loggedIn==false) {
-    res.redirect('/?exists=false');
-  }
-  let makerToChangeActive = req.query.maker;
-  
-  Account.findOne({username: req.session.user['username']})
-  .exec((err, data)=> {
-    if (err) {
-      res.redirect('/main/makers');
+              }else{
+                res.redirect('/main/makers');
+              }
+          });
+        }    
+      });
     }else{
-      let makers = [];
-      data.makers.map((maker)=>{
-        if (maker.name == makerToChangeActive) {
-          (maker.active == true ? maker.active = false : maker.active = true);
-        }
-        makers.push(maker);
-      })    
-      Account.findOneAndUpdate({username: req.session.user['username']},
-                               {makers: makers},
-                               (err, data)=>{
-          if (err) {
+      Account.findOne({username: req.session.user['username']})
+      .exec((err, data)=> {
+        if (err) {
+          res.redirect('/main/makers');
+        }else{
+          let makers = [];
+          let m = req.body.newMaker;
+          data.makers.map((maker)=>{
+            if (maker.name != m) {
+              makers.push(maker);
+            }
+          })    
+          Account.findOneAndUpdate({username: req.session.user['username']},
+                                   {makers: makers},
+                                   (err, data)=>{
+              if (err) {
 
-          }else{
-            res.redirect('/main/makers');
-          }
+              }else{
+                res.redirect('/main/makers');
+              }
+          });
+        }    
       });
     }    
-  });
-});
-
-app.get('/main/makers/delete', (req, res) => {
-  if (req.session.loggedIn==false) {
-    res.redirect('/?exists=false');
-  }
-  let makerToDelete = req.query.maker;
-  
-  Account.findOne({username: req.session.user['username']})
-  .exec((err, data)=> {
-    if (err) {
-      res.redirect('/main/makers');
-    }else{
-      let makers = [];
-      data.makers.map((maker)=>{
-        if (maker.name != makerToDelete) {
-          makers.push(maker);
-        }
-      })    
-      Account.findOneAndUpdate({username: req.session.user['username']},
-                               {makers: makers},
-                               (err, data)=>{
-          if (err) {
-
-          }else{
-            res.redirect('/main/makers');
-          }
-      });
-    }    
-  });
+  }  
 });
 
 app.get('/main/settings', (req, res) =>{
