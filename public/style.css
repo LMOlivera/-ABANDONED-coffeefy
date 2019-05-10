@@ -29,6 +29,10 @@ nav a button{
   padding: 2vw;
   max-width: 200px;
   min-height: 350px;
+  max-height: 350px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
 }
 
 #makers-box ul {
@@ -36,9 +40,16 @@ nav a button{
   padding: 0px;
 }
 
+#main-makers-list {
+  /*max-height: 180px;*/
+  overflow-y: auto;
+  height: 100%
+}
 #makers-list {
-  max-height: 180px;
+  min-width: 400px;
+  max-width: 400px;
   overflow-y: scroll;
+  max-height: 250px;
 }
 
 .txt-white {

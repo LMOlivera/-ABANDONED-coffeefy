@@ -27,24 +27,16 @@ html(lang="en")
       
     main
       div(class="container" id="container")
-        div
-          h1 Makers
-        div(id="makers-list")
-          ul
-            each maker in makers
-              li.maker= maker.name
-                if maker.name!="There are no makers yet"
-                  a(href=("/main/makers/delete?maker=" + maker.name))
-                    button(class="btn-delete-maker") Delete
-                  if maker.active==true
-                    a(href=("/main/makers/changeActive?maker=" + maker.name))
-                      button(class="btn-delete-maker") Deactivate
-                  else
-                    a(href=("/main/makers/changeActive?maker=" + maker.name))
-                      button(class="btn-delete-maker") Activate
-        div(class="width-50")
-          form(id="add-maker" method="POST" action="/main/makers" autocomplete="off")
-            input(class="width-100" type="text" name="newMaker" placeholder="Maker's name" style="padding: 0px;" required autofocus)
-            input(class="width-100" type="submit" value="Add Maker")
-          
-          
+        h1 Makers
+        div(style="display:flex;")
+          div(id="makers-list")
+            ul
+              each maker in makers
+                li.maker= maker.name
+          div(class="width-50")
+            form(id="add-maker" method="POST" action="/main/makers" autocomplete="off")
+              input(class="width-100" type="text" name="newMaker" placeholder="Maker's name" style="padding: 0px;" required autofocus)
+              input(class="width-100" type="password" name="newPassword" placeholder="Maker's password" style="padding: 0px;" required)
+              input(class="width-100" type="submit" name="action" value="add")
+              input(class="width-100" type="submit" name="action" value="changeActive")
+              input(class="width-100" type="submit" name="action" value="delete")
