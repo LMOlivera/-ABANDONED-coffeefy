@@ -1,4 +1,5 @@
 'use strict';
+//https://www.cypress.io/ for testing?
 
 const express      = require('express');
 const app = express();
@@ -19,15 +20,18 @@ var accountSchema = new Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   makers: [{
+    _id : false,
     name: {type: String, unique: true},
     password: {type: String, required: true},
     active: {type: Boolean}    
   }],
   last: {
+    _id : false,
     name: {type: String},
     date: {type: Date}
   },
-  next: {type: String}
+  next: {type: String},
+  history: [{_id : false, name: String, date: Date}]
 });
 var Account = mongoose.model('Account', accountSchema);
 
@@ -45,7 +49,15 @@ app.use(session({secret: process.env.SESSION_SECRET,
 app.set('view engine', 'pug');
 
 //Log in - Sign up
-app.get("/", (req, res) => {
+app.get("/", (req, res) =>{
+  if (req.session.loggedIn==true) {
+    res.redirect('/main');
+  }else{
+    res.render(process.cwd() + '/views/welcome');
+  }
+});
+
+app.get("/login-signup", (req, res) => {
   if (req.session.loggedIn==true) {
     res.redirect('/main');
   }else{
@@ -69,7 +81,8 @@ app.post('/signup', (req, res) => {
     username: req.body.username,
     password: req.body.password,
     makers: [],
-    last: {}
+    last: {},
+    history: []
   });
     acc.save((err, data) => {
       if (err){
@@ -100,17 +113,17 @@ app.post('/signin', (req, res) => {
   });
 });
 //////////////////
-
 app.get('/main', (req, res) =>{
   if (req.session.loggedIn!=true) {
     res.redirect('/');
   }else{
     Account.findOne({username: req.session.user['username']})
     .exec((err, data)=> { 
+      let incorrectPassword = (req.query.incorrectPassword==undefined ? false : true);
       let makers = [];
       if (data.makers.length == 0) {
         makers.push({name: "There are no makers yet. Go to 'Manage Makers' and create them!", active: true});
-        res.render(process.cwd() + '/views/main', {makers: makers, today: "nobody", last: "nobody"});
+        res.render(process.cwd() + '/views/main', {makers: makers, today: "nobody", last: "nobody", incorrectPassword: incorrectPassword});
       }else{
         data["makers"].forEach((maker)=>{
           var m = {};
@@ -126,21 +139,21 @@ app.get('/main', (req, res) =>{
           makers.push({name: "There are no active makers :(", active: true});
           last = "nobody";        
           today = "nobody";
-          res.render(process.cwd() + '/views/main', {makers: makers, today: today, last: last});
+          res.render(process.cwd() + '/views/main', {makers: makers, today: today, last: last, incorrectPassword: incorrectPassword});
         }else if(makers.length == 1) {
           last = "no";        
           today = "body";
-          res.render(process.cwd() + '/views/main', {makers: makers, today: today, last: last});
+          res.render(process.cwd() + '/views/main', {makers: makers, today: today, last: last, incorrectPassword: incorrectPassword});
         }else if (data.last.date == undefined) {
           last = "nobody";        
           today = makers[0].name;
-          res.render(process.cwd() + '/views/main', {makers: makers, today: today.slice(2, today.length), last: last});
+          res.render(process.cwd() + '/views/main', {makers: makers, today: today.slice(2, today.length), last: last, incorrectPassword: incorrectPassword});
         }else if(data.last.date != undefined){
           let tDate = new Date();
           tDate.setHours(0,0,0,0);
           //tDate.setDate(tDate.getDate() + 1);
           if (data.last.date.getTime()==tDate.getTime()) {
-            res.render(process.cwd() + '/views/main', {makers: makers, today: data.last.name, last: data.last.name});
+            res.render(process.cwd() + '/views/main', {makers: makers, today: data.last.name, last: data.last.name, incorrectPassword: incorrectPassword});
           }else{
             let makers = []
             data["makers"].forEach((maker)=>{
@@ -160,7 +173,7 @@ app.get('/main', (req, res) =>{
                   i = makers.length;
                 }else{
                   continue;
-                }                
+                }
               }
               if (m == data.last.name) {
                 next = true;
@@ -170,13 +183,29 @@ app.get('/main', (req, res) =>{
               }
             }
 
-            res.render(process.cwd() + '/views/main', {makers: makers, today: nextMaker, last: data.last.name});
+            res.render(process.cwd() + '/views/main', {makers: makers, today: nextMaker, last: data.last.name, incorrectPassword: incorrectPassword});
           }        
         }
       }
     })
   }
 });
+
+//Calendar API
+app.get('/api/calendar', (req, res) =>{
+  Account.findOne({username: req.session.user['username']})
+    .exec((err, data)=> { 
+    if (err) {
+      res.json({error: "error"});
+    }else{
+      res.json({history: data.history, makers: data.makers});
+    }
+  });
+});
+//Calendar API
+
+
+
 
 app.post('/main/mark', (req, res) =>{
   let today = {name: req.query.today, date: new Date().toDateString()};
@@ -185,15 +214,26 @@ app.post('/main/mark', (req, res) =>{
                            "makers.name": {"$in": [maker.name]},
                            "makers.password": {"$in": [maker.password]}},
                            {last: today},
-                           (err, data)=>{
+                           (err, accData)=>{
+    console.log(accData);
       if (err) {
         res.json({error: "Something bad happened :c"});
       }else{
-        //Check maker's name and password
-        console.log(data);
-        
-        
-        res.redirect('/main');
+        if(accData==null){
+          res.redirect('/main?incorrectPassword=true');
+        }else{
+          let history = accData.history;
+          history.push(today);
+          Account.findOneAndUpdate({username: req.session.user['username']},
+                                   {history: history},
+                                   (err, data)=>{
+            if (err) {
+              res.redirect('/main?incorrectPassword=true');
+            }else{
+              res.redirect('/main');
+            }
+          }); 
+        }
       }
   });
 });
@@ -213,7 +253,7 @@ app.get('/main/makers', (req, res) =>{
         var m = {};
         //if (maker.active == true) {
         m["name"] = maker.name;
-        m["active"] = maker.active;
+        m["active"] = (maker.active ? "active" : "inactive");
         makers.push(m);
         //}
       });

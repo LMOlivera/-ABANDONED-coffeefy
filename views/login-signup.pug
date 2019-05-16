@@ -23,7 +23,7 @@ html(lang="en")
     main
       div(class="container" id="container")
           div(class="form-container sign-up-container")
-            form(action="/signup", method="post" autocomplete="off")
+            form(class="height-100" action="/signup", method="post" autocomplete="off")
               h1(class="h1-login-signup") Create Account
               if already==true
                 p(class="txt-error") The username you just entered is already taken :(
@@ -38,7 +38,7 @@ html(lang="en")
               input(class="width-100" type="submit" value="Sign Up") 
               
           div(class="form-container sign-in-container")
-            form(action="/signin", method="post")
+            form(class="height-100" action="/signin", method="post")
               h1(class="h1-login-signup") Log in
               if exists==false
                 p(class="txt-error") The username or password you just entered are wrong :(

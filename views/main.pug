@@ -6,15 +6,11 @@ html(lang="en")
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel="stylesheet"
-         href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-         crossorigin="anonymous")
     link(href='./style.css', rel='stylesheet')    
     link(rel="manifest" href="..public/manifest.json")
-    script(src="/login-signup.js" defer)
+    script(src="/main.js")
     
-  body
+  body(onload="getHistory()")
   
     nav
       a(href="/main")
@@ -27,15 +23,15 @@ html(lang="en")
         button(class="nav-button") Log out        
       
     main
-      div(class="container" id="container")
-        div(style="display: flex;")
-          div(id="makers-box")
+      div(class="container" id="container" style="display: flex;")
+        div(id="makers-box")
             h1 Makers
             div(id="main-makers-list")
               ul
                 each maker in makers
                   if maker.active==true
-                    li.maker= maker.name
+                    li.maker= maker.name          
+        div(id="information")
           div
             if last=="no" && today=="body"
               p There is only one maker, do you really need to use this app?
@@ -47,9 +43,40 @@ html(lang="en")
                 p Today nobody makes coffee :(
               else
                 if today==last
-                  button(disabled) #{today} has already made coffee today
+                  p #{today} has made coffee today.
                 else
                   p Today #{today} makes coffee!
                   form(action=("/main/mark?today=" + today) method="post")
-                    input(type="password" name="password" placeholder= today + "'s password")
+                    if incorrectPassword==true
+                      p(class="txt-error") You entered an incorrect password :(
+                    input(type="password" name="password" placeholder= (today + "'s password") required)
                     input(type="submit" value= today + " has made coffee")
+                  p unless...
+                  form(action=("/main/mark") method="post" style="padding: 0;")
+                    input(type="password" name="password" placeholder= ("Someone else's password") required)
+                    input(type="submit" value= "Someone else has made coffee")
+                  
+          div(id="calendar")
+            div(style="display:flex; justify-content: space-around;")
+              button(class="btn-calendar" onclick="changeYear(-1)") <
+              div(id="year") XXXX
+              button(class="btn-calendar" onclick="changeYear(1)") >
+            div(style="display:flex; justify-content: space-around;")
+              button(class="btn-calendar" onclick="changeMonth(-1)") <
+              div(id="month") XXX
+              button(class="btn-calendar" onclick="changeMonth(1)") >
+            table(id="" style="display:flex; justify-content: center;")
+              tr(id="daysOfWeek")
+                th S
+                th M
+                th T
+                th W
+                th T
+                th F
+                th S
+              tr(id="week1")
+              tr(id="week2")
+              tr(id="week3")
+              tr(id="week4")
+              tr(id="week5")
+              tr(id="week6")

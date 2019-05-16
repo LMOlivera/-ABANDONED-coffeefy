@@ -1,0 +1,99 @@
+html(lang="en")
+  head
+    title Who makes coffee today?
+    meta(name='description' content="Tired of arguing over who's turn is it to make coffee? This site is for you!")
+    link#favicon(rel='icon', href='https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242', type='image/x-icon')
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet"
+         href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+         crossorigin="anonymous")
+    link(rel="manifest" href="..public/manifest.json")
+    link(href='../welcome.css', rel='stylesheet')         
+    script(src="/welcome.js" defer)
+    
+  body
+    div(id="container")
+      nav
+        div(id="nav-left")
+          ul
+            li
+              a(href="/" onclick="alert('This icon will be recolored to match with the UI')")
+                img(id="nav-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242")
+            li
+              button(class="btn-not-relevant") Features
+        div(id="nav-right")
+          a(href="/login-signup")
+            button(class="btn-relevant") Log-in/Sign-up
+
+      main
+        section(id="section-1")
+          div(id="card-1")
+            h1(class="title center")
+              i(class="fas fa-coffee fa-2x")   
+              text(style="font-size: 32px;") No more arguments!
+            p(class="txt-justify") Coffeefy enables groups of people (like family or coworkers) to keep track of the coffee maker. No more mind games or turn-cheating! 
+            center
+              a(href="/login-signup")
+                button(class="btn-relevant") Get started!
+          div(id="card-2")
+            p Image of people drinking?
+        section(id="section-2")
+          div(class="features")
+            h3(class="title")
+              i(class="fas fa-users fa-2x")   
+              text Account
+            p Coffeefy allows you to create an account for a group of people
+          div(class="features")
+            h3(class="title")
+              i(class="fas fa-user fa-2x")   
+              text Makers
+            p Each account has "Coffee Makers" which maker coffee in turns.
+          div(class="features")
+            h3(class="title")
+              i(class="fas fa-shield-alt fa-2x")   
+              text Security
+            p Avoid people manipulating the order of the making by having a password associated to each maker.
+          div(class="features")
+            h3(class="title")
+              i(class="fas fa-user-slash fa-2x")   
+              text Temporal unavailability
+            p Disable makers who cannot do their task for specific reasons and enable them again when they do!
+        section(id="section-3")
+          div(id="companies")
+            h1(class="center" style="font-size: 32px;") Companies that enjoy Coffeefy
+            div(id="companies-logos")
+              img(class="company-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2Ftcs.png?1557942278914")
+              img(class="company-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2Fhsfranchise.jpg?1557942278795")
+          div(id="testimonies")
+            div(class="testimony")
+              img(class="testimony-img" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2Fkisspng-logo-person-user-person-icon-5b4d2bd25185e8.0544055615317841463339.png?1557943690097")
+              p(class="testimony-text") "It's incredible that this guy made Coffeefy instead of working!"
+            div(class="testimony")
+              img(class="testimony-img" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2Fkisspng-logo-person-user-person-icon-5b4d2bd25185e8.0544055615317841463339.png?1557943690097")
+              p(class="testimony-text") "When I grow older I want to be like the person who created Coffeefy."
+            div(class="testimony")
+              img(class="testimony-img" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2Fkisspng-logo-person-user-person-icon-5b4d2bd25185e8.0544055615317841463339.png?1557943690097")
+              p(class="testimony-text") "Aguante el café vieja"
+        section(id="section-4")
+          div
+            p Start using coffeefy now! It's free!
+            a(href="/login-signup")
+              button(class="btn-relevant") Let's get started
+      
+      footer
+        div(style="display: flex; align-items: center;")
+          a(href="/" onclick="alert('This icon will be recolored to match with the UI')")
+            img(id="nav-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242")     
+          text(style="margin-left: 10px;") Coffeefy © 2019
+        div
+          i(class="fab fa-facebook-square fa-3x side-margin")   
+          i(class="fab fa-twitter-square fa-3x side-margin")   
+          i(class="fab fa-github-square fa-3x side-margin")             
+          i(class="fab fa-linkedin fa-3x side-margin")             
+        div()
+          button(class="btn-not-relevant") Terms of service
+          button(class="btn-not-relevant") Privacy
+          button(class="btn-not-relevant") GDPR
