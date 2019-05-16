@@ -1,0 +1,280 @@
+/* http://colormind.io/bootstrap/#
+- Use this color as the background for your dark-on-light
+designs, or the text color of an inverted design: F6F1F2
+
+- Accent colors can be used to bring attention to design
+elements by contrasting with the rest of the palette: DB9E88
+
+- This color should be eye-catching but not harsh. It can
+be liberally applied to your layout as its main identity: C15C47
+
+- Another accent color to consider. Not all colors have to
+be used - sometimes a simple color scheme works best: 89848C
+
+- Use as the text color for dark-on-light designs, or as
+the background for inverted designs: 3D313C
+
+
+background-color: #F2F1EC;
+background-color: #949C9E;
+background-color: #C15C47;
+background-color: #9D7C54;
+background-color: #111111;
+*/
+
+* { 
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300;
+  line-height: 1.5em;
+  font-size: 14px;
+}
+
+body{
+  background-color: #9D7C54;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;  
+}
+
+#container {
+  
+}
+
+nav {
+  background-color: #9D7C54;
+  width: 80%;
+  min-height: 100px;
+  max-height: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+#nav-left {
+  
+}
+
+#nav-left ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#nav-left ul li{
+  margin: 0 10px;
+}
+
+#nav-logo {
+  width: 64px;
+  height: 64px;
+}
+
+#nav-right {
+  align-items: center;
+}
+
+.btn-not-relevant {
+  
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 8.4375rem;
+  height: 2.9375rem;
+  color: #111111;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.65);
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  margin: 0 10px;
+}
+
+.btn-relevant {
+  background-color: #C15C47;
+  border-radius: 5px;
+  border: none;
+  border-bottom: 4px solid #A85341;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 8.4375rem;
+  height: 2.9375rem;
+  color: #F2F1EC;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.65);
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  
+}
+
+#block-test {
+  width: 64px;
+  height: 64px;
+}
+
+#section-1 {
+  background-color: #111111;
+  height: 80%;
+  padding: 2vw;
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+}
+
+.title {
+  color: #C15C47;
+  text-shadow:0 2px 20px rgba(0,0,0,.16);
+  font-weight: normal;
+}
+.center {
+  text-align: center;
+}
+.txt-justify {
+  text-align: justify;
+}
+
+#card-1 {
+  background-color: #F2F1EC;
+  border-radius: 10px;
+  padding: 1vw;
+  margin: auto;
+  width: 55%;
+}
+
+#card-2 {
+  background-color: #F2F1EC;
+  border-radius: 10px;
+  padding: 1vw;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+}
+
+#section-2 {
+  background-color: #F2F1EC;
+  height: 100%;
+  padding: 2vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.features {
+  margin: 1vw;
+  padding: 1vw;
+  width: 70%;
+  border-radius: 10px;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+#section-3 {
+  background-color: #111111;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  padding: 2vw;
+}
+
+#companies {
+  background-color: rgb(0,0,0);
+  color: #F2F1EC;
+  border-radius: 10px;
+  padding: 1vw;
+}
+
+#companies-logos {
+  display: flex;
+  justify-content: center;
+}
+
+.company-logo {
+  max-width: 128px;
+  max-height: 128px;
+  margin: 0 auto;
+}
+
+#testimonies {
+  margin-top: 1vw;
+  display: flex;
+  justify-content: space-around;
+}
+
+.testimony {
+  background-color: rgb(0,0,0);
+  color: #F2F1EC;
+  border-radius: 10px;
+  padding: 1vw;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 25%;
+  min-width: 25%;
+}
+
+.testimony-img {
+  max-width: 128px;
+  max-height: 128px;
+  align-items: flex-end;
+}
+
+.testimony-text {
+  width: 40%;
+  margin-left: 10px;
+}
+
+#section-4 {
+  background-color: #F2F1EC;
+  display: flex;
+  height: 90%;
+}
+
+footer {
+  display: flex;
+  min-height: 100px;
+  height: 10%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.side-margin {
+  margin: 0 10px;
+}
+
+
+.fa-github-square {
+  color: #F2F1EC;
+}
+.fa-github-square:hover {
+  color: #333;
+}
+
+.fa-facebook-square {
+  color: #F2F1EC;
+}
+.fa-facebook-square:hover {
+  color: #3b5998;
+}
+
+.fa-linkedin {
+  color: #F2F1EC;
+}
+.fa-linkedin:hover {
+  color: #1985bc;
+}
+
+.fa-twitter-square {
+  color: #F2F1EC;  
+}
+.fa-twitter-square:hover {
+  color: #1da1f2;  
+}
