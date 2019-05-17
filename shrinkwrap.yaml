@@ -2,7 +2,7 @@ dependencies:
   express: 4.16.4
   express-session: 1.16.1
   helmet: 3.18.0
-  mongoose: 5.5.8
+  mongoose: 5.5.9
   pug: 2.0.3
 packages:
   /@types/babel-types/7.0.7:
@@ -601,7 +601,7 @@ packages:
       mongoose: '*'
     resolution:
       integrity: sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
-  /mongoose/5.5.8:
+  /mongoose/5.5.9:
     dependencies:
       async: 2.6.2
       bson: 1.1.1
@@ -620,7 +620,7 @@ packages:
     engines:
       node: '>=4.0.0'
     resolution:
-      integrity: sha512-BcClXFUAl0L9T57LEztGv+dzHfd8t29cqd3X9NSRHfjHOmj1mduJA3pKSunnb7vah7VvIBCHzEocJtw4Q5WGFA==
+      integrity: sha512-0FQ9pJS9m0GpPVv6aUNfyhjW+VMKlX/VgnfMkk+sK50shjtO3uG3xweoZrdXuANBEJ9hGH63mivi4301DItjUg==
   /mpath/0.6.0:
     dev: false
     engines:
@@ -1090,5 +1090,5 @@ specifiers:
   express: ^4.16.4
   express-session: ^1.16.1
   helmet: ^3.18.0
-  mongoose: ^5.5.8
+  mongoose: ^5.5.9
   pug: ^2.0.3

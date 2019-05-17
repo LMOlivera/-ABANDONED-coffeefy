@@ -1,4 +1,4 @@
-var data;
+let data;
 
 function getMonth(monthNumber) {
   let month = "";
@@ -88,7 +88,6 @@ function getMakersList() {
 function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfWeek) {
   let firstDay = getFirstDayOfMonth(actualDay, actualDayOfWeek);
   let history = getSpecificHistory(actualYear, actualMonth);
-  console.log(history);
   let makersList = getMakersList();
   let emptyDays = 0;
   let days = 1;
@@ -128,7 +127,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         listField++;
       }
     }else{
-      for (var a = 0; a < history.length; a++) {
+      for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
@@ -153,7 +152,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         listField++
       }
     }else{
-      for (var a = 0; a < history.length; a++) {
+      for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
@@ -179,7 +178,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         listField++
       }
     }else{
-      for (var a = 0; a < history.length; a++) {
+      for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
@@ -205,7 +204,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         listField++;
       }
     }else{
-      for (var a = 0; a < history.length; a++) {
+      for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
@@ -234,7 +233,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         listField++
       }
     }else{
-      for (var a = 0; a < history.length; a++) {
+      for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
@@ -264,7 +263,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         listField++;
       }
     }else{
-      for (var a = 0; a < history.length; a++) {
+      for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
@@ -299,6 +298,7 @@ function getHistory() {
         document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
       }
     }catch(e){
+      alert(e);
       document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
     }
     
@@ -391,5 +391,4 @@ function changeYear(value) {
   
   changeMonth(0);
 }
-
 //////////////

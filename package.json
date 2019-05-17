@@ -1,7 +1,7 @@
 {
-  "name": "who-makes-coffee-today-v1",
-  "version": "1.0.0",
-  "description": "Tells you who has to make coffee today.",
+  "name": "coffeefy",
+  "version": "0.4.0",
+  "description": "Coffee-making organizer.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -9,7 +9,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "pug": "^2.0.3",
-    "mongoose": "^5.5.8",
+    "mongoose": "^5.5.9",
     "express-session": "^1.16.1",
     "helmet": "^3.18.0"
   },
@@ -26,6 +26,7 @@
     "express",
     "pug",
     "mongoose",
-    "express-session"
+    "express-session",
+    "coffee"
   ]
 }
