@@ -1,6 +1,6 @@
 html(lang="en")
   head
-    title Who makes coffee today?
+    title Coffeefy
     meta(name='description' content="Tired of arguing over who's turn is it to make coffee? This site is for you!")
     link#favicon(rel='icon', href='https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242', type='image/x-icon')
     meta(charset='utf-8')
@@ -11,8 +11,7 @@ html(lang="en")
          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
          crossorigin="anonymous")
     link(rel="manifest" href="..public/manifest.json")
-    link(href='../welcome.css', rel='stylesheet')         
-    script(src="/welcome.js" defer)
+    link(href='/welcome.css', rel='stylesheet') 
     
   body
     div(id="container")
@@ -24,6 +23,8 @@ html(lang="en")
                 img(id="nav-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242")
             li
               button(class="btn-not-relevant") Features
+            li
+              button(class="btn-not-relevant") Testimonies
         div(id="nav-right")
           a(href="/login-signup")
             button(class="btn-relevant") Log-in/Sign-up
@@ -40,6 +41,7 @@ html(lang="en")
                 button(class="btn-relevant") Get started!
           div(id="card-2")
             p Image of people drinking?
+            
         section(id="section-2")
           div(class="features")
             h3(class="title")
@@ -61,6 +63,7 @@ html(lang="en")
               i(class="fas fa-user-slash fa-2x")   
               text Temporal unavailability
             p Disable makers who cannot do their task for specific reasons and enable them again when they do!
+            
         section(id="section-3")
           div(id="companies")
             h1(class="center" style="font-size: 32px;") Companies that enjoy Coffeefy
@@ -77,6 +80,7 @@ html(lang="en")
             div(class="testimony")
               img(class="testimony-img" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2Fkisspng-logo-person-user-person-icon-5b4d2bd25185e8.0544055615317841463339.png?1557943690097")
               p(class="testimony-text") "Aguante el café vieja"
+              
         section(id="section-4")
           div
             p Start using coffeefy now! It's free!
@@ -88,11 +92,13 @@ html(lang="en")
           a(href="/" onclick="alert('This icon will be recolored to match with the UI')")
             img(id="nav-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242")     
           text(style="margin-left: 10px;") Coffeefy © 2019
+          
         div
           i(class="fab fa-facebook-square fa-3x side-margin")   
           i(class="fab fa-twitter-square fa-3x side-margin")   
           i(class="fab fa-github-square fa-3x side-margin")             
-          i(class="fab fa-linkedin fa-3x side-margin")             
+          i(class="fab fa-linkedin fa-3x side-margin")  
+          
         div()
           button(class="btn-not-relevant") Terms of service
           button(class="btn-not-relevant") Privacy
