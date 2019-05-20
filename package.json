@@ -9,7 +9,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "pug": "^2.0.3",
-    "mongoose": "^5.5.9",
+    "mongoose": "^5.5.10",
     "express-session": "^1.16.1",
     "helmet": "^3.18.0"
   },

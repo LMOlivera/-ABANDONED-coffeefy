@@ -1,5 +1,5 @@
 'use strict';
-
+//Refactor OK
 const express      = require('express');
 const app = express();
 const session      = require('express-session');
@@ -33,4 +33,3 @@ const listener = app.listen(process.env.PORT, function() {
 });
 
 //https://www.cypress.io/ for testing?
-//https://www.tutorialspoint.com/expressjs/expressjs_best_practices.htm and this to organize the files

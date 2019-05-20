@@ -1,4 +1,4 @@
-Who makes coffee today?
+Coffeefy
 =================
 We often argue at work about who's turn is to make coffee. With this app, that won't happen anymore!
 
@@ -42,3 +42,4 @@ Resources
 - [Colormind](http://colormind.io/bootstrap/): Color palette generator powered by IA.
 - [Express.js best practices](https://www.tutorialspoint.com/expressjs/expressjs_best_practices.htm): Folder structure.
 - [Glitch](https://glitch.com/): Online playground for node applications (this application is hosted there too!).
+- [Landing Page UX](https://uxplanet.org/the-ux-behind-designing-landing-pages-that-convert-b302ef745c74): Behind the design of landing pages.

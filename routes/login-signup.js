@@ -1,4 +1,5 @@
 'use strict';
+//Refactor OK
 let Account = require('../models/Account.js');
 
 module.exports = function (app, loggedTrue) {
