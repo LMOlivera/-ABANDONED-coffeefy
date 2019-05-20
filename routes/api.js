@@ -1,5 +1,5 @@
 'use strict';
-
+//Refactor OK
 let Account = require('../models/Account.js');
 
 module.exports = function (app) {
@@ -8,11 +8,7 @@ module.exports = function (app) {
     try{
       Account.findOne({username: req.session.user['username']})
         .exec((err, data)=> {
-        if (err) {
-          res.json({error: "error"});
-        }else{
-          res.json({history: data.history, makers: data.makers});
-        }
+        (err ? res.json({error: "error"}) : res.json({history: data.history, makers: data.makers}));
       });
     }catch(e){
       res.json({error: "error"});

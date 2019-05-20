@@ -131,6 +131,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
         if (history[a].date+1 == days) {
           let name = history[a].name;
           td.onclick = () => alert("This day " + name + " made coffee.");
+          td.className += "txt-made";
         }
       }
     }

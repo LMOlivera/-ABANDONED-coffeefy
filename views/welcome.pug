@@ -47,17 +47,17 @@ html(lang="en")
             h3(class="title")
               i(class="fas fa-users fa-2x")   
               text Account
-            p Coffeefy allows you to create an account for a group of people
+            p Coffeefy allows you to create an account for a group of people, like a family or a workplace.
           div(class="features")
             h3(class="title")
               i(class="fas fa-user fa-2x")   
               text Makers
-            p Each account has "Coffee Makers" which maker coffee in turns.
+            p Each account has individual "Coffee Maker" accounts which organize to make coffee in turns.
           div(class="features")
             h3(class="title")
               i(class="fas fa-shield-alt fa-2x")   
               text Security
-            p Avoid people manipulating the order of the making by having a password associated to each maker.
+            p Avoid people manipulating the order of the making by having a password associated to each user.
           div(class="features")
             h3(class="title")
               i(class="fas fa-user-slash fa-2x")   
@@ -82,8 +82,9 @@ html(lang="en")
               p(class="testimony-text") "Aguante el café vieja"
               
         section(id="section-4")
-          div
-            p Start using coffeefy now! It's free!
+          div(id="try-now")
+            h1(style="font-size: 32px;") Start using coffeefy now! It's free!
+            br
             a(href="/login-signup")
               button(class="btn-relevant") Let's get started
       
@@ -95,11 +96,12 @@ html(lang="en")
           
         div
           i(class="fab fa-facebook-square fa-3x side-margin")   
-          i(class="fab fa-twitter-square fa-3x side-margin")   
-          i(class="fab fa-github-square fa-3x side-margin")             
+          i(class="fab fa-twitter-square fa-3x side-margin") 
+          a(href="https://github.com/LMOlivera" target="_blank")
+            i(class="fab fa-github-square fa-3x side-margin")             
           i(class="fab fa-linkedin fa-3x side-margin")  
           
-        div()
+        div
           button(class="btn-not-relevant") Terms of service
           button(class="btn-not-relevant") Privacy
           button(class="btn-not-relevant") GDPR

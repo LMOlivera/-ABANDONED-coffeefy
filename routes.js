@@ -1,23 +1,16 @@
 'use strict';
+//Refactor OK
 
 //Routes files
 let loginSignup = require('./routes/login-signup.js');
 let main = require('./routes/main.js');
 
 function loggedTrue(req, res, next) {
-  if (req.session.loggedIn==true) {
-    res.redirect('/main');
-  }else{
-    next();
-  }
+  (req.session.loggedIn==true ? res.redirect('/main') : next());
 }
 
 function loggedFalse(req, res, next) {
-  if (req.session.loggedIn!=true) {
-    res.redirect('/');
-  }else{
-    next();
-  }
+  (req.session.loggedIn!=true ? res.redirect('/') : next());
 }
 
 module.exports = function (app) {  
