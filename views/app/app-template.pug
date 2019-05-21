@@ -1,0 +1,36 @@
+html(lang="en")
+  head
+    title Coffeefy
+    meta(name='description' content="Tired of arguing over who's turn is it to make coffee? This site is for you!")
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link#favicon(rel='icon', href='https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242', type='image/x-icon')
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
+    link(href='/css/app.css', rel='stylesheet')
+    link(rel="manifest" href="..public/manifest.json")
+  body  
+    nav(id="nav")
+      div(id="nav-div")
+        a(href="/main" onclick="alert('This icon will be recolored to match with the UI')")
+          img(id="nav-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242")
+          center Coffeefy
+        a(href="/main")
+          button(class="nav-btn")
+            i(class="fas fa-home")    
+            text Main Page
+        a(href="/main/makers")
+          button(class="nav-btn")
+            i(class="fas fa-coffee")    
+            text Manage Makers
+        a(href="/main/settings")
+          button(class="nav-btn")
+            i(class="fas fa-user-edit")    
+            text Account Settings
+        a(href="/main/logout")
+          button(class="nav-btn")
+            i(class="fas fa-sign-out-alt")    
+            text Log out
+        center Coffeefy © 2019
+    block main
+  script(src="/js/menu.js")

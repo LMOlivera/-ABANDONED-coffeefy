@@ -11,7 +11,7 @@ html(lang="en")
          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
          crossorigin="anonymous")
     link(rel="manifest" href="..public/manifest.json")
-    link(href='/welcome.css', rel='stylesheet') 
+    link(href='/css/welcome.css', rel='stylesheet') 
     
   body
     div(id="container")
@@ -35,10 +35,12 @@ html(lang="en")
             h1(class="title center")
               i(class="fas fa-coffee fa-2x")   
               text(style="font-size: 32px;") No more arguments!
-            p(class="txt-justify") Coffeefy enables groups of people (like family or coworkers) to keep track of the coffee maker. No more mind games or turn-cheating! 
+            p(class="txt-justify") Coffeefy enables groups of people (like family or coworkers) to keep track of the coffee making. No more mind games or turn-cheating! 
             center
               a(href="/login-signup")
-                button(class="btn-relevant") Get started!
+                button(class="btn-relevant") 
+                  i(class="fas fa-mug-hot")    
+                  text Get started!
           div(id="card-2")
             p Image of people drinking?
             
@@ -86,7 +88,9 @@ html(lang="en")
             h1(style="font-size: 32px;") Start using coffeefy now! It's free!
             br
             a(href="/login-signup")
-              button(class="btn-relevant") Let's get started
+              button(class="btn-relevant")
+                i(class="fas fa-mug-hot")    
+                text Let's make some coffee!
       
       footer
         div(style="display: flex; align-items: center;")

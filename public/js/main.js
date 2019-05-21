@@ -107,11 +107,14 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
   
   
   let week1 = document.getElementById('week1');
-  
-  for(let i = -1; i != firstDay; i++) {
-    let td = document.createElement('td');
-    week1.appendChild(td);
-    emptyDays++;
+  if (firstDay != 6) {
+    for(let i = -1; i != firstDay; i++) {
+      let td = document.createElement('td');
+      week1.appendChild(td);
+      emptyDays++;
+    }
+  } else {
+    emptyDays = 0;
   }
   
   for(let i = emptyDays; i != 7; i++) {
@@ -393,3 +396,5 @@ function changeYear(value) {
   changeMonth(0);
 }
 //////////////
+
+getHistory();

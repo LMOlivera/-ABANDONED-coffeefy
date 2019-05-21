@@ -1,0 +1,61 @@
+extends app-template.pug
+
+block main
+  main
+    div(id="makers-box")
+        h1 Makers
+        div(id="main-makers-list")
+          ul
+            each maker in makers
+              if maker.active==true
+                li.maker= maker.name          
+    div(id="information")
+      div
+        if last=="no" && today=="body"
+          p There is only one maker, do you really need to use this app?
+        else
+          if last!="nobody"
+            p Last time, #{last} made coffee.
+
+          if today=="nobody"
+            p Today nobody makes coffee :(
+          else
+            if today==last
+              p #{today} has made coffee today.
+            else
+              p Today #{today} makes coffee!
+              form(action=("/main/mark?today=" + today) method="post")
+                if incorrectPassword==true
+                  p(class="txt-error") You entered an incorrect password :(
+                input(type="password" name="password" placeholder= (today + "'s password") required)
+                input(type="submit" value= today + " has made coffee")
+              p unless...
+              form(action=("/main/mark") method="post" style="padding: 0;")
+                input(type="password" name="password" placeholder= ("Someone else's password") required)
+                input(type="submit" value= "Someone else has made coffee")
+
+      div(id="calendar")
+        div(style="display:flex; justify-content: space-around;")
+          i(class="far fa-arrow-alt-circle-left fa-2x btn-calendar" onclick="changeYear(-1)")
+          div(id="year") XXXX
+          i(class="far fa-arrow-alt-circle-right fa-2x btn-calendar" onclick="changeYear(1)")
+        div(style="display:flex; justify-content: space-around;")
+          button(class="btn-calendar" onclick="changeMonth(-1)") <
+          div(id="month") XXX
+          button(class="btn-calendar" onclick="changeMonth(1)") >
+        table(id="" style="display:flex; justify-content: center;")
+          tr(id="daysOfWeek")
+            th S
+            th M
+            th T
+            th W
+            th T
+            th F
+            th S
+          tr(id="week1")
+          tr(id="week2")
+          tr(id="week3")
+          tr(id="week4")
+          tr(id="week5")
+          tr(id="week6")
+  script(src="/js/main.js")

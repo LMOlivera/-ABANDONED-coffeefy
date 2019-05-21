@@ -37,6 +37,7 @@ function getNextMaker(makers, data) {
 }
 
 module.exports = function (app, loggedFalse) {
+  //This is not working correctly when there is 1 or no makers!
   app.get('/main', loggedFalse, (req, res) =>{
     Account.findOne({username: req.session.user['username']})
     .exec((err, data)=> { 
@@ -71,7 +72,7 @@ module.exports = function (app, loggedFalse) {
           last = data.last.name;
         }        
       }
-      res.render(process.cwd() + '/views/main', {makers: makers, today: today, last: last, incorrectPassword: incorrectPassword});
+      res.render(process.cwd() + '/views/app/main', {makers: makers, today: today, last: last, incorrectPassword: incorrectPassword});
     });
   });
 
@@ -110,7 +111,7 @@ module.exports = function (app, loggedFalse) {
       }else{
         makers = getMakers(data["makers"]);
       }
-      res.render(process.cwd() + '/views/makers', {makers: makers});
+      res.render(process.cwd() + '/views/app/makers', {makers: makers});
     })
   });
   
@@ -169,6 +170,6 @@ module.exports = function (app, loggedFalse) {
   });
   
   app.get('/main/settings', loggedFalse, (req, res) =>{
-    res.render(process.cwd() + '/views/settings');
+    res.render(process.cwd() + '/views/app/settings');
   });
 };
