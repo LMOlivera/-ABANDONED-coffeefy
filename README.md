@@ -13,8 +13,8 @@ Technology used
   - Pug.
   - Mongoose (with MLab).
   - Helmet.
-- Glitch: Hosting.
 - Github.
+- FontAwesome.
 
 Project strucutre
 ------------
