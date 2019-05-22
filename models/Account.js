@@ -9,9 +9,10 @@ let accountSchema = new Schema({
   password: {type: String, required: true},
   makers: [{
     _id : false,
-    name: {type: String, unique: true},
+    name: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    active: {type: Boolean}    
+    active: {type: Boolean},
+    times: Number
   }],
   last: {
     _id : false,

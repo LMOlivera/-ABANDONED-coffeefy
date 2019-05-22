@@ -310,9 +310,42 @@ function getHistory() {
   request.send();
 }
 
-/////////////////
 
 //Interactions
+function showMakers() {
+  let box = document.getElementById("makers-box").style;
+  let btn = document.getElementById("show-makers");
+  if (box.width=="0px"|| box.width=='') {
+    box.width = "200px";
+    box.padding = "2vw";
+  }else{
+    box.width = "0";
+    box.padding = "0";
+  }
+}
+
+function showMarker() {
+  let box = document.getElementById("mark").style;
+  if (box.display=="none"|| box.display=='') {
+    box.display = "block";
+  }else{
+    box.display = "none";
+  }
+}
+
+function whatIfSomeoneCant() {
+  alert("If someone can't make coffee you have two options. The first one is that if that person will be unable to make coffee in a while, you should go to 'manage makers' and deactivate him/her, you can activate the maker later. If it's something more specific, someone else can make coffee and use the 'someone else offer to maker cofee instead' button.");
+}
+
+function showMarkerForSomeoneElse() {
+  let box = document.getElementById("mark-someone-else").style;
+  if (box.display=="none"|| box.display=='') {
+    box.display = "block";
+  }else{
+    box.display = "none";
+  }
+}
+
 function getNumberOfMonth(month) {
   let monthNumber = "";
   switch(month) {
@@ -355,6 +388,7 @@ function getNumberOfMonth(month) {
   }
   return monthNumber;
 }
+
 function truncateTable() {
   document.getElementById('week1').innerText = "";
   document.getElementById('week2').innerText = "";
@@ -364,7 +398,6 @@ function truncateTable() {
   document.getElementById('week6').innerText = "";
 }
 
-//Change month
 function changeMonth(value) {
   let monthNumber = getNumberOfMonth(document.getElementById('month').innerText);
   if (value == -1 && monthNumber !=0) {
@@ -382,7 +415,6 @@ function changeMonth(value) {
                          d.getDay());
 }
 
-//Change year
 function changeYear(value) {
   let year = parseInt(document.getElementById('year').innerText);
   if (value == -1 && year !=0) {
