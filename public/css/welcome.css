@@ -245,11 +245,11 @@ footer {
   color: #333;
 }
 
-.fa-facebook-square {
+.fa-dev {
   color: var(--bg-light);
 }
-.fa-facebook-square:hover {
-  color: #3b5998;
+.fa-dev:hover {
+  color: var(--bg-dark);
 }
 
 .fa-linkedin {
@@ -264,4 +264,12 @@ footer {
 }
 .fa-twitter-square:hover {
   color: #1da1f2;  
+}
+
+.fa-free-code-camp {
+  color: var(--bg-light);
+}
+
+.fa-free-code-camp:hover {
+  color: darkgreen;
 }

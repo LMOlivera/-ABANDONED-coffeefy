@@ -90,10 +90,31 @@ module.exports = function (app, loggedFalse) {
           if(accData==null){
             res.redirect('/main?incorrectPassword=true');
           }else{
+            //Update history
             let history = accData.history;
             history.push(today);
+            
+            //Update "times" counter in makers
+            let makers = accData.makers;
+            makers.map((m)=>{
+              if (m.name == maker.name) {
+                m.times += 1;
+              }
+            });
+            
+            /*Sort makers by their "times" counter
+            makers.sort(( a, b ) => {
+              if ( a.times < b.times ){
+                return 1;
+              }
+              if ( a.times > b.times ){
+                return -1;
+              }
+              return 0;
+            });*/            
+            
             Account.findOneAndUpdate({username: req.session.user['username']},
-                                     {history: history},
+                                     {history: history, makers: makers},
                                      (err, data)=>{
               (err ? res.redirect('/main?incorrectPassword=true') : res.redirect('/main'));
             }); 
@@ -126,7 +147,7 @@ module.exports = function (app, loggedFalse) {
         let mPassword = req.body.newPassword;
         switch(req.body.action) {
           case "add":
-            data.makers.push({name: mName, password: mPassword, active: true});
+            data.makers.push({name: mName, password: mPassword, active: true, times: 0});
             Account.findOneAndUpdate({username: req.session.user['username']},
                                      {makers: data.makers},
                                      (err, data)=>{

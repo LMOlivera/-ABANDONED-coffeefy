@@ -78,18 +78,42 @@ a {
   color: var(--brand-color);
 }
 
-.btn {
-  box-shadow: none;
-  background-color: #999999;
-  color: #FFFFFF;  
-  border: none;
-  border-radius: 3px;
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0;
-  will-change: box-shadow, transform;
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+.btn-choice {
+  border-radius: 5px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  width: 200px;
+  height: 50px;
+  color: var(--bg-light);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.65);
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  margin: 5px;
+}
+
+.choice-okay {
+  background-color: green;
+  border: 4px solid darkgreen;
+}
+
+.choice-wrong {
+  background-color: red;
+  border: 4px solid darkred;
+}
+
+.choice-caution {
+  background-color: orange;
+  border: 4px solid darkorange;
+}
+
+#mark {
+  display: none;
+}
+
+#mark-someone-else {
+  display: none;
 }
 
 /*Below everything should be changed*/
@@ -97,21 +121,57 @@ main {
   display: flex;
   height: 100%;
   width: 100%;
-  padding: 2vw;
   overflow: auto;
+  overflow-x: hidden;
+}
+#show-makers {
+  align-self: center;
+  background-color: var(--brand-color);
+  border: 0;
+  border-left: 4px solid #A85341;
+  border-bottom: 2px solid #A85341;
+  border-radius: 80% 0 0 80%;
+  color: var(--bg-light);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font: inherit;
+  height: auto;
+  justify-content: center;
+  letter-spacing: inherit;
+  margin: 0; 
+  position: relative;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.65);
+  width: 50px;
+}
+
+#btn-overlay {
+  align-self: center;  
+  height: 100%;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+#btn-overlay-arrow {
+  margin-top: 3.5vw;
+  margin-left: -2vw;  
+  align-self: center;
 }
 
 #makers-box {
-    border-radius: 5px;
-    background-color: var(--accent2-color);
-    color: #eeeeee;
-    padding: 2vw;
-    max-width: 200px;
-    min-height: 350px;
-    max-height: 350px;
-    display: flex;
-    flex-direction: column;
-    margin-right: 10px;
+  background-color: var(--brand-color);
+  color: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 0px;
+  overflow-x: hidden;
+  padding: 0vw;
+  right: 0;
+  transition: 0.3s;  
+  top: 0;
+  z-index: 1;
 }
 
 #makers-box ul {
@@ -120,13 +180,15 @@ main {
 }
 
 #main-makers-list {
+  overflow-x: hidden;
   overflow-y: auto;
   height: 100%;
 }
 
 #information {
-    display: flex;
-    width: 100%;
+  display: flex;
+  padding: 2vw;
+  width: 100%;
 }
 
 
