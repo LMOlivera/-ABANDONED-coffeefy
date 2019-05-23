@@ -21,7 +21,8 @@ Project strucutre
 - models:
   - Account.js
 - public:
-  - That's a lot of files, it will take a lot of refactoring.
+  - css: Folder which contains CSS files. Working on mergin all CSS' files.
+  - js: Folder which contains JS files. Working on merging all JS' files.
 - routes:
   - api.js
   - login-signup.js
@@ -43,3 +44,4 @@ Resources
 - [Express.js best practices](https://www.tutorialspoint.com/expressjs/expressjs_best_practices.htm): Folder structure.
 - [Glitch](https://glitch.com/): Online playground for node applications (this application is hosted there too!).
 - [Landing Page UX](https://uxplanet.org/the-ux-behind-designing-landing-pages-that-convert-b302ef745c74): Behind the design of landing pages.
+- [Article](https://medium.freecodecamp.org/a-step-by-step-guide-to-making-pure-css-tooltips-3d5a3e237346): Make tooltips using only CSS.
