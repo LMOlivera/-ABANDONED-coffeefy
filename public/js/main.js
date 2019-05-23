@@ -1,46 +1,23 @@
 let data;
 
 function getMonth(monthNumber) {
-  let month = "";
-  switch(monthNumber) {
-    case 0:
-      month="January";
-      break;
-    case 1:
-      month="February";
-      break;
-    case 2:
-      month="March";
-      break;
-    case 3:
-      month="April";
-      break;
-    case 4:
-      month="May";
-      break;
-    case 5:
-      month="June";
-      break;
-    case 6:
-      month="July";
-      break;
-    case 7:
-      month="August";
-      break;
-    case 8:
-      month="September";
-      break;
-    case 9:
-      month="October";
-      break;
-    case 10:
-      month="November";
-      break;
-    case 11:
-      month="December";
-      break;
-  }    
-  return month;
+  let months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+  return months[monthNumber];
+}
+function getNumberOfMonth(month) {
+  let months = {'January' : '0',
+                'February' : '1',
+                'March' : '2',
+                'April' : '3',
+                'May' : '4',
+                'June' : '5',
+                'July' : '6',
+                'August' : '7',
+                'September' : '8',
+                'October' : '9',
+                'November' : '10',
+                'December' : '11'}
+  return months[month.toString()];
 }
 
 function getFirstDayOfMonth(actualDay, actualDayOfWeek) {
@@ -54,7 +31,6 @@ function getFirstDayOfMonth(actualDay, actualDayOfWeek) {
   }
   return actualDayOfWeek;
 }
-
 function getLastDayOfMonth(y,m){
   return new Date(y, m +1, 0).getDate();
 }
@@ -75,23 +51,15 @@ function getSpecificHistory(year, month) {
   });
   return makers;
 }
-function getMakersList() {
-  let makers = [];
-  data.makers.map((maker)=>{
-    if (maker.active == true) {
-      makers.push(maker.name);
-    }
-  })
-  return makers;
-}
 
 function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfWeek) {
   let firstDay = getFirstDayOfMonth(actualDay, actualDayOfWeek);
   let history = getSpecificHistory(actualYear, actualMonth);
-  let makersList = getMakersList();
+  let makersList = data.makers;
   let emptyDays = 0;
   let days = 1;
   let lastDayMade;
+  //I can't remember why I did this :c
   try{
     lastDayMade = history[history.length-1].date+1;  
   }catch(e){
@@ -104,8 +72,10 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
   }catch(e){
     listField = 0;
   }
+  //////////////////////////////////////
   
   
+  //There must be a way of mergin weeks together
   let week1 = document.getElementById('week1');
   if (firstDay != 6) {
     for(let i = -1; i != firstDay; i++) {
@@ -133,156 +103,85 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
       for (let a = 0; a < history.length; a++) {
         if (history[a].date+1 == days) {
           let name = history[a].name;
-          td.onclick = () => alert("This day " + name + " made coffee.");
           td.className += "txt-made";
+          td.setAttribute("tooltip", name.toString());
+          td.setAttribute("tooltip-position", "top");
         }
       }
     }
     week1.appendChild(td);
     days++;
   }
-  
-  let week2 = document.getElementById('week2');
-  for(let i = 0; i != 7; i++) {
-    let td = document.createElement('td');
-    let day = document.createTextNode(days);
-    td.appendChild(day);
-    if(days > lastDayMade && days >= actualDay) {
-      let name = makersList[listField];
-      td.onclick = () => alert("This day " + name + " has to make coffee.");
-      if (listField>=makersList.length-1) {
-        listField = 0
-      }else {
-        listField++
-      }
-    }else{
-      for (let a = 0; a < history.length; a++) {
-        if (history[a].date+1 == days) {
-          let name = history[a].name;
-          td.onclick = () => alert("This day " + name + " made coffee.");
-          td.className += "txt-made";
-        }
-      }
-    }
-    week2.appendChild(td);
-    days++;
-  }
-  
-  let week3 = document.getElementById('week3');
-  for(let i = 0; i != 7; i++) {
-    let td = document.createElement('td');
-    let day = document.createTextNode(days);
-    td.appendChild(day);
-    if(days > lastDayMade && days >= actualDay) {
-      let name = makersList[listField];
-      td.onclick = () => alert("This day " + name + " has to make coffee.");
-      if (listField>=makersList.length-1) {
-        listField = 0
-      }else {
-        listField++
-      }
-    }else{
-      for (let a = 0; a < history.length; a++) {
-        if (history[a].date+1 == days) {
-          let name = history[a].name;
-          td.onclick = () => alert("This day " + name + " made coffee.");
-          td.className += "txt-made";
-        }
-      }
-    }
-    week3.appendChild(td);
-    days++;
-  }
-  
-  let week4 = document.getElementById('week4');
-  for(let i = 0; i != 7; i++) {
-    let td = document.createElement('td');
-    let day = document.createTextNode(days);
-    td.appendChild(day);
-    if(days > lastDayMade && days >= actualDay) {
-      let name = makersList[listField];
-      td.onclick = () => alert("This day " + name + " has to make coffee.");
-      if (listField>=makersList.length-1) {
-        listField = 0;
-      }else {
-        listField++;
-      }
-    }else{
-      for (let a = 0; a < history.length; a++) {
-        if (history[a].date+1 == days) {
-          let name = history[a].name;
-          td.onclick = () => alert("This day " + name + " made coffee.");
-          td.className += "txt-made";
-        }
-      }
-    }
-    week4.appendChild(td);
-    days++;
     
+  for(let w = 2; w < 5; w++) {
+    let week = document.getElementById('week' + w);
+    for(let i = 0; i != 7; i++) {
+      let td = document.createElement('td');
+      let day = document.createTextNode(days);
+      td.appendChild(day);
+      if(days > lastDayMade && days >= actualDay) {
+        let name = makersList[listField];
+        td.onclick = () => alert("This day " + name + " has to make coffee.");
+        if (listField>=makersList.length-1) {
+          listField = 0
+        }else {
+          listField++
+        }
+      }else{
+        for (let a = 0; a < history.length; a++) {
+          if (history[a].date+1 == days) {
+            let name = history[a].name;
+            td.className += "txt-made";
+            td.setAttribute("tooltip", name.toString());
+            td.setAttribute("tooltip-position", "top");
+          }
+        }
+      }
+      week.appendChild(td);
+      days++;
+    } 
   }
   
   let lastDayOfMonth = (getLastDayOfMonth(actualYear, actualMonth)+1);
-  let week5 = document.getElementById('week5');
-  let daysInWeek = 0;
-  for(let i = days; i != lastDayOfMonth; i++) {
-    let td = document.createElement('td');
-    let day = document.createTextNode(days);
-    td.appendChild(day);
-    if(days > lastDayMade && days >= actualDay) {
-      let name = makersList[listField];
-      td.onclick = () => alert("This day " + name + " has to make coffee.");
-      if (listField>=makersList.length-1) {
-        listField = 0
-      }else {
-        listField++
-      }
-    }else{
-      for (let a = 0; a < history.length; a++) {
-        if (history[a].date+1 == days) {
-          let name = history[a].name;
-          td.onclick = () => alert("This day " + name + " made coffee.");
-          td.className += "txt-made";
-        }
-      }
-    }
-    week5.appendChild(td);
-    days++;
-    if (daysInWeek > 5) {
-      break;
-    }
-    daysInWeek++;
-  }
   
-  let week6 = document.getElementById('week6');
-  for(let i = days; i != lastDayOfMonth; i++) {
-    let td = document.createElement('td');
-    let day = document.createTextNode(days);
-    td.appendChild(day);
-    if(days > lastDayMade && days >= actualDay) {
-      let name = makersList[listField];
-      td.onclick = () => alert("This day " + name + " has to make coffee.");
-      if (listField>=makersList.length-1) {
-        listField = 0
+  let daysInWeek = 0;
+  
+  for(let w = 5; w < 7; w++) {
+    let week = document.getElementById('week' + w);
+    for(let i = days; i != lastDayOfMonth; i++) {
+      let td = document.createElement('td');
+      let day = document.createTextNode(days);
+      td.appendChild(day);
+      if(days > lastDayMade && days >= actualDay) {
+        let name = makersList[listField];
+        td.onclick = () => alert("This day " + name + " has to make coffee.");
+        if (listField>=makersList.length-1) {
+          listField = 0
+        }else {
+          listField++
+        }
       }else{
-        listField++;
-      }
-    }else{
-      for (let a = 0; a < history.length; a++) {
-        if (history[a].date+1 == days) {
-          let name = history[a].name;
-          td.onclick = () => alert("This day " + name + " made coffee.");
-          td.className += "txt-made";
+        for (let a = 0; a < history.length; a++) {
+          if (history[a].date+1 == days) {
+            let name = history[a].name;
+            td.className += "txt-made";
+            td.setAttribute("tooltip", name.toString());
+            td.setAttribute("tooltip-position", "top");
+          }
         }
       }
+      week.appendChild(td);
+      days++;
+      if (daysInWeek > 5) {
+        break;
+      }
+      daysInWeek++;
     }
-    week6.appendChild(td);
-    days++;
   }
 }
 
 function getHistory() {  
-  
-  let request = new XMLHttpRequest()
+  let request = new XMLHttpRequest();
   request.open('GET', '/api/calendar', true);
   request.onload = function() {
     try {
@@ -302,10 +201,8 @@ function getHistory() {
         document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
       }
     }catch(e){
-      alert(e);
       document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
-    }
-    
+    }    
   }
   request.send();
 }
@@ -314,7 +211,6 @@ function getHistory() {
 //Interactions
 function showMakers() {
   let box = document.getElementById("makers-box").style;
-  let btn = document.getElementById("show-makers");
   if (box.width=="0px"|| box.width=='') {
     box.width = "200px";
     box.padding = "2vw";
@@ -326,11 +222,7 @@ function showMakers() {
 
 function showMarker() {
   let box = document.getElementById("mark").style;
-  if (box.display=="none"|| box.display=='') {
-    box.display = "block";
-  }else{
-    box.display = "none";
-  }
+  ((box.display=="none"|| box.display=='') ? box.display="block" : box.display="none");
 }
 
 function whatIfSomeoneCant() {
@@ -339,92 +231,32 @@ function whatIfSomeoneCant() {
 
 function showMarkerForSomeoneElse() {
   let box = document.getElementById("mark-someone-else").style;
-  if (box.display=="none"|| box.display=='') {
-    box.display = "block";
-  }else{
-    box.display = "none";
-  }
-}
-
-function getNumberOfMonth(month) {
-  let monthNumber = "";
-  switch(month) {
-    case "January":
-      monthNumber=0;
-      break;
-    case "February":
-      monthNumber=1;
-      break;
-    case "March":
-      monthNumber=2;
-      break;
-    case "April":
-      monthNumber=3;
-      break;
-    case "May":
-      monthNumber=4;
-      break;
-    case "June":
-      monthNumber=5;
-      break;
-    case "July":
-      monthNumber=6;
-      break;
-    case "August":
-      monthNumber=7;
-      break;
-    case "September":
-      monthNumber=8;
-      break;
-    case "October":
-      monthNumber=9;
-      break;
-    case "November":
-      monthNumber=10;
-      break;
-    case "December":
-      monthNumber=11;
-      break;
-  }
-  return monthNumber;
+  ((box.display=="none"|| box.display=='') ? box.display="block" : box.display="none");
 }
 
 function truncateTable() {
-  document.getElementById('week1').innerText = "";
-  document.getElementById('week2').innerText = "";
-  document.getElementById('week3').innerText = "";
-  document.getElementById('week4').innerText = "";
-  document.getElementById('week5').innerText = "";
-  document.getElementById('week6').innerText = "";
+  for(let i = 0; i < 6; i++) {
+    document.getElementById('week' + (i+1)).innerText = "";
+  }
 }
 
 function changeMonth(value) {
   let monthNumber = getNumberOfMonth(document.getElementById('month').innerText);
   if (value == -1 && monthNumber !=0) {
     monthNumber--;
-    document.getElementById('month').innerText = getMonth(monthNumber);
   }else if(value == 1 && monthNumber !=11){
-    monthNumber++;
-    document.getElementById('month').innerText = getMonth(monthNumber);
+    monthNumber++;    
   }
+  document.getElementById('month').innerText = getMonth(monthNumber);
   truncateTable();
   let d = new Date(document.getElementById('year').innerText,monthNumber, 1);
-  organizeDaysInCalendar(d.getFullYear(),
-                         d.getMonth(),
-                         d.getDate(),
-                         d.getDay());
+  organizeDaysInCalendar(d.getFullYear(), d.getMonth(), d.getDate(), d.getDay());
 }
 
 function changeYear(value) {
   let year = parseInt(document.getElementById('year').innerText);
-  if (value == -1 && year !=0) {
-    year--;
-    document.getElementById('year').innerText = year;
-  }else{
-    year++;
-    document.getElementById('year').innerText = year;
-  }
-  
+  (value == -1 && year !=0 ? year-- : year++)
+  document.getElementById('year').innerText = year;
   changeMonth(0);
 }
 //////////////
