@@ -1,5 +1,5 @@
 'use strict';
-//Refactoring...
+//Refactor OK
 let Account = require('../models/Account.js');
 let mHandler = require('../controllers/makersHandler.js');
 let makersHandler = new mHandler();

@@ -23,11 +23,7 @@ function getNumberOfMonth(month) {
 function getFirstDayOfMonth(actualDay, actualDayOfWeek) {
   while(actualDay != 0) {
     actualDay--;
-    if(actualDayOfWeek==0) {
-      actualDayOfWeek = 6;
-    }else{
-      actualDayOfWeek--;
-    }      
+    (actualDayOfWeek==0 ? actualDayOfWeek = 6 : actualDayOfWeek--)
   }
   return actualDayOfWeek;
 }
@@ -42,8 +38,8 @@ function getSpecificHistory(year, month) {
   h.forEach((maker)=>{
     let m = new Date(maker.date).getMonth();
     let y = new Date(maker.date).getFullYear();
-    if ( m == month &&  y == year) {
-      let obj = {};
+    let obj = {};
+    if ( m == month &&  y == year) {      
       obj.name = maker.name;
       obj.date = new Date(maker.date).getDate();
       makers.push(obj);
@@ -72,12 +68,14 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
   }catch(e){
     listField = 0;
   }
+  console.log(makersList[listField].name);
   //////////////////////////////////////
   
   
   //There must be a way of mergin weeks together
   let week1 = document.getElementById('week1');
-  if (firstDay != 6) {
+  //Empty days from previous month
+  if (firstDay != 6) { //Not Saturday?
     for(let i = -1; i != firstDay; i++) {
       let td = document.createElement('td');
       week1.appendChild(td);
@@ -87,12 +85,14 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
     emptyDays = 0;
   }
   
+  //Week 1
   for(let i = emptyDays; i != 7; i++) {
     let td = document.createElement('td');
     let day = document.createTextNode(i - (emptyDays-1));
     td.appendChild(day);
     if(days > lastDayMade && days >= actualDay) {
-      let name = makersList[listField];
+      //This is not working well
+      let name = makersList[listField].name;
       td.onclick = () => alert("This day " + name + " has to make coffee.");
       if (listField>=makersList.length-1) {
         listField = 0;
@@ -113,6 +113,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
     days++;
   }
     
+  //Week 2 to 4
   for(let w = 2; w < 5; w++) {
     let week = document.getElementById('week' + w);
     for(let i = 0; i != 7; i++) {
@@ -120,7 +121,8 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
       let day = document.createTextNode(days);
       td.appendChild(day);
       if(days > lastDayMade && days >= actualDay) {
-        let name = makersList[listField];
+        //This is not working well
+        let name = makersList[listField].name;
         td.onclick = () => alert("This day " + name + " has to make coffee.");
         if (listField>=makersList.length-1) {
           listField = 0
@@ -142,10 +144,9 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
     } 
   }
   
-  let lastDayOfMonth = (getLastDayOfMonth(actualYear, actualMonth)+1);
-  
+  let lastDayOfMonth = (getLastDayOfMonth(actualYear, actualMonth)+1);  
   let daysInWeek = 0;
-  
+  //Week 5 & 6
   for(let w = 5; w < 7; w++) {
     let week = document.getElementById('week' + w);
     for(let i = days; i != lastDayOfMonth; i++) {
@@ -153,7 +154,8 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
       let day = document.createTextNode(days);
       td.appendChild(day);
       if(days > lastDayMade && days >= actualDay) {
-        let name = makersList[listField];
+        //This is not working well
+        let name = makersList[listField].name;
         td.onclick = () => alert("This day " + name + " has to make coffee.");
         if (listField>=makersList.length-1) {
           listField = 0
