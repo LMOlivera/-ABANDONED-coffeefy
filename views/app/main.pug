@@ -31,9 +31,9 @@ block main
                 text #{today} can't make coffee
               button(class="btn-choice choice-caution" onclick="showMarkerForSomeoneElse()")
                 i(class="fas fa-exclamation")    
-                text Someone else offers to make coffee instead
+                text Someone else is making coffee today
               form(id="mark-someone-else" action=("/main/mark") method="post" style="padding: 0;")
-                select
+                select(name="name")
                   each maker in makers
                     if maker.name != today
                       option(value=maker.name) #{maker.name}

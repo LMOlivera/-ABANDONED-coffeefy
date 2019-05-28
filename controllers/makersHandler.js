@@ -1,6 +1,9 @@
 'use strict';
-
+// Refactor pending...
 let Account = require('../models/Account.js');
+
+let bcrypt  = require('bcrypt');
+let saltRounds = 12;
 
 function makersController() {  
   this.getIndexOfMaker = function(makers, maker) {
@@ -49,12 +52,12 @@ function makersController() {
     return makers;
   }
   
-  this.getNextMaker = function(makers, data) {    
-    let index = this.getIndexOfMaker(makers, data);
+  this.getNextMaker = function(makers, maker) {
+    let index = this.getIndexOfMaker(makers, maker);
     if (index==-1) {
       //WHAT DO?
     }else{
-      if (index>makers.length-1) {
+      if (index+1>makers.length-1) {
         return makers[0].name;
       }else{
         return makers[index+1].name;
@@ -66,7 +69,7 @@ function makersController() {
   
   this.passwordCheck = (incorrectPassword)=>{ incorrectPassword == undefined ? false : true };
   
-  this.importantInfo = function(data) {    
+  this.importantInfo = function(data) {
     let makers = this.getActiveMakers(data["makers"]);
     let last;
     let today;
@@ -102,53 +105,63 @@ function makersController() {
   
   //These needs improvements
   this.mark = function(req, callback) {
-    let today = {name: req.query.today, date: new Date().toDateString()};
-    let maker = {name: req.query.today, password: req.body.password}
-    Account.findOneAndUpdate({username: req.session.user['username'],
+    let today;
+    let maker;
+    if (req.query.today == undefined || req.query.today == null || req.query.today == "") {
+      today = {name: req.body.name, date: new Date().toDateString()};
+      maker = {name: req.body.name, password: req.body.password};
+    }else{
+      today = {name: req.query.today, date: new Date().toDateString()};
+      maker = {name: req.query.today, password: req.body.password}
+    }
+    
+    console.log(req.body.name);
+    console.log(req.body.password);
+    Account.findOneAndUpdate({username: req.session.account['username'],
                              "makers.name": {"$in": [maker.name]},
                              "makers.password": {"$in": [maker.password]}},
                              {last: today},
                              (err, accData)=>{
-        if (err) {
-          callback(0);
+      if (err) {
+        callback(0);
+      }else{
+        if(accData==null){
+          callback(1);
         }else{
-          if(accData==null){
-            callback(1);
-          }else{
-            //Update history
-            let history = accData.history;
-            history.push(today);
+          //Update history
+          let history = accData.history;
+          history.push(today);
             
-            //Update "times" counter in makers
-            let makers = accData.makers;
-            makers.map((m)=>{
-              if (m.name == maker.name) {
-                m.times += 1;
-              }
-            });
-            
-            /*Sort makers by their "times" counter
-            makers.sort(( a, b ) => {
-              if ( a.times < b.times ){
-                return 1;
-              }
-              if ( a.times > b.times ){
-                return -1;
-              }
-              return 0;
-            });*/            
-            
-            Account.findOneAndUpdate({username: req.session.user['username']},
-                                     {history: history, makers: makers},
-                                     (err, data)=>{
-              if(err) {
-                callback(1);
-              }else{
-                callback(2);
-              };
-            }); 
-          }
-        }
+          //Update "times" counter in makers
+          let makers = accData.makers;
+          makers.map((m)=>{
+            if (m.name == maker.name) {
+              m.times += 1;
+            }
+          });
+
+          /*Sort makers by their "times" counter
+          makers.sort(( a, b ) => {
+            if ( a.times < b.times ){
+              return 1;
+            }
+            if ( a.times > b.times ){
+              return -1;
+            }
+            return 0;
+          });*/            
+
+          Account.findOneAndUpdate({username: req.session.account['username']},
+                                   {history: history, makers: makers},
+                                   (err, data)=>{
+            if(err) {
+              callback(1);
+            }else{
+              callback(2);
+            };
+          }); 
+      }
+      }
     });    
   }
   this.POSTMaker = function(req, callback) {
