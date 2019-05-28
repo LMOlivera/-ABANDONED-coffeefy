@@ -13,7 +13,8 @@ module.exports = function (app, loggedFalse) {
                  {makers: importantInfo[0],
                   today: importantInfo[1],
                   last: importantInfo[2],
-                  incorrectPassword: makersHandler.passwordCheck(req.query.incorrectPassword)});
+                  incorrectPassword: makersHandler.passwordCheck(req.query.incorrectPassword),
+                  admin: req.session.admin});
     });
   });
 
@@ -31,7 +32,8 @@ module.exports = function (app, loggedFalse) {
   
   app.get('/main/makers', loggedFalse, (req, res) =>{
     makersHandler.getEveryMaker(req.session.account['username'], (makers)=>{
-      res.render(process.cwd() + '/views/app/makers', {makers: makers});
+      res.render(process.cwd() + '/views/app/makers', {makers: makers,
+                                                       admin: req.session.admin});
     });    
   });
   
@@ -42,6 +44,6 @@ module.exports = function (app, loggedFalse) {
   });
   
   app.get('/main/settings', loggedFalse, (req, res) =>{
-    res.render(process.cwd() + '/views/app/settings');
+    res.render(process.cwd() + '/views/app/settings',{admin: req.session.admin});
   });
 };

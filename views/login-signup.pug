@@ -33,10 +33,10 @@ html(lang="en")
                 //a(href="#" class="social")
                 //  i(class="fab fa-linkedin-in")
               //span or use your email for registration
-              input(class="width-100" name="username" type="text" placeholder="Username" required)
+              input(class="width-100" name="username" type="text" placeholder="Account name" required)
               label Choose a sorting mode:
-                select(name="mode" style="display: inline-block;")
-                  option(value="order") List order
+                select(name="mode" style="display: inline-block;" required)
+                  option(value="list") List order
                   option(value="times") Times made
               input(class="width-100" name="maker" type="text" placeholder="Main maker's name" required)
               input(class="width-100" name="password" type="password" placeholder="Main maker's password" required)

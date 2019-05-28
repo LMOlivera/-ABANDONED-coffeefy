@@ -1,3 +1,4 @@
+'use strict';
 let data;
 
 function getMonth(monthNumber) {
@@ -5,18 +6,8 @@ function getMonth(monthNumber) {
   return months[monthNumber];
 }
 function getNumberOfMonth(month) {
-  let months = {'January' : '0',
-                'February' : '1',
-                'March' : '2',
-                'April' : '3',
-                'May' : '4',
-                'June' : '5',
-                'July' : '6',
-                'August' : '7',
-                'September' : '8',
-                'October' : '9',
-                'November' : '10',
-                'December' : '11'}
+  let months = {'January' : '0', 'February' : '1', 'March' : '2', 'April' : '3', 'May' : '4', 'June' : '5',
+                'July' : '6', 'August' : '7', 'September' : '8', 'October' : '9', 'November' : '10', 'December' : '11'};
   return months[month.toString()];
 }
 
@@ -69,8 +60,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
     listField = 0;
   }
   console.log(makersList[listField].name);
-  //////////////////////////////////////
-  
+  //////////////////////////////////////  
   
   //There must be a way of mergin weeks together
   let week1 = document.getElementById('week1');

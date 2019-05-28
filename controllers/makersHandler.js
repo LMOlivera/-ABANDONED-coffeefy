@@ -176,7 +176,7 @@ function makersController() {
         let mPassword = req.body.newPassword;
         switch(req.body.action) {
           case "add":
-            data.makers.push({name: mName, password: mPassword, active: true, times: 0});
+            data.makers.push({name: mName, password: mPassword, active: true, times: 0, admin: false});
             Account.findOneAndUpdate({username: req.session.user['username']},
                                      {makers: data.makers},
                                      (err, data)=>{
