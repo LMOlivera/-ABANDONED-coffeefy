@@ -22,8 +22,9 @@ module.exports = function (app, loggedTrue) {
   app.post('/signup', loggedTrue, (req, res) => {
     bcrypt.hash(req.body.username, saltRounds, function(err, hash) {
       let url = hash;
-      let acc = new Account({username: req.body.username, accountUrl: url,
-                             makers: [], last: {}, history: []});
+      let makers =[{name: req.body.maker, password: req.body.password, active: true, times: 0, admin: true}];
+      let acc = new Account({username: req.body.username, accountUrl: url, sortingMode: req.body.mode,
+                             makers: makers, last: {}, history: []});
       acc.save((err, data) => {
         if (err){
           (err.code == 11000 ? res.redirect('login-signup/?already=true') : res.json({error: err}));
@@ -88,6 +89,7 @@ module.exports = function (app, loggedTrue) {
       }else{
         req.session.loggedIn = true;
         req.session.account = accData;
+        req.session.admin = accData.makers[accData.makers.map((x)=>{return x.name}).indexOf(maker.name)].admin;
         res.redirect('/main');
       }
     });

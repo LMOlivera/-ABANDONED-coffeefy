@@ -19,10 +19,11 @@ html(lang="en")
           button(class="nav-btn")
             i(class="fas fa-home")    
             text Main Page
-        a(href="/main/makers")
-          button(class="nav-btn")
-            i(class="fas fa-coffee")    
-            text Manage Makers
+        if admin == true
+          a(href="/main/makers")
+            button(class="nav-btn")
+              i(class="fas fa-coffee")    
+              text Manage Makers
         a(href="/main/settings")
           button(class="nav-btn")
             i(class="fas fa-user-edit")    
