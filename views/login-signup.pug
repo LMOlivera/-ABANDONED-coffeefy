@@ -34,24 +34,26 @@ html(lang="en")
                 //  i(class="fab fa-linkedin-in")
               //span or use your email for registration
               input(class="width-100" name="username" type="text" placeholder="Username" required)
-              input(class="width-100" name="password" type="password" placeholder="Password" required)
+              label Choose a sorting mode:
+                select(name="mode" style="display: inline-block;")
+                  option(value="order") List order
+                  option(value="times") Times made
+              input(class="width-100" name="maker" type="text" placeholder="Main maker's name" required)
+              input(class="width-100" name="password" type="password" placeholder="Main maker's password" required)
               input(class="width-100" type="submit" value="Sign Up") 
               
           div(class="form-container sign-in-container")
             form(class="height-100" action="/signin", method="post")
-              h1(class="h1-login-signup") Log in
+              h1(class="h1-login-signup") Go to account
               if exists==false
-                p(class="txt-error") The username or password you just entered are wrong :(
+                p(class="txt-error") The Account just entered is wrong :(
               //div(class="social-container")
                 //  a(href="#" class="social")
                   //  i(class="fab fa-facebook-f")
                 //  a(href="#" class="social")
                   //  i(class="fab fa-linkedin-in")
-              //span or use your account
               input(class="width-100" name="username" type="text" placeholder="Username" required)
-              input(class="width-100" name="password" type="password" placeholder="Password" required)
-              //a(href="#") Forgot your password?
-              input(class="width-100" type="submit" value="Log In")
+              input(class="width-100" type="submit" value="Go to Account's login")
               
           div(class="overlay-container")
             div(class="overlay")
@@ -61,5 +63,5 @@ html(lang="en")
                   button(class="ghost" id="signIn") Log In!
               div(class="overlay-panel overlay-right")
                   h1(class="h1-login-signup") Hello!
-                  p(class="txt-white") You don't have an account yet?
+                  p(class="txt-white") You don't have an Account yet?
                   button(class="ghost" id="signUp") Create one now!

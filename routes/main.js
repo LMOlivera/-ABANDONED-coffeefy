@@ -6,7 +6,7 @@ let makersHandler = new mHandler();
 
 module.exports = function (app, loggedFalse) {
   app.get('/main', loggedFalse, (req, res) =>{
-    Account.findOne({username: req.session.user['username']})
+    Account.findOne({username: req.session.account['username']})
     .exec((err, data)=> { 
       let importantInfo = makersHandler.importantInfo(data);
       res.render(process.cwd() + '/views/app/main',
@@ -30,7 +30,7 @@ module.exports = function (app, loggedFalse) {
   });
   
   app.get('/main/makers', loggedFalse, (req, res) =>{
-    makersHandler.getEveryMaker(req.session.user['username'], (makers)=>{
+    makersHandler.getEveryMaker(req.session.account['username'], (makers)=>{
       res.render(process.cwd() + '/views/app/makers', {makers: makers});
     });    
   });

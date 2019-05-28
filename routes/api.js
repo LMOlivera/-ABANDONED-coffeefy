@@ -9,7 +9,7 @@ module.exports = function (app) {
   app.route('/api/calendar')
     .get(function (req, res){
     try{
-      Account.findOne({username: req.session.user['username']})
+      Account.findOne({username: req.session.account['username']})
         .exec((err, data)=> {        
         (err ? res.json({error: "error"}) : res.json({history: data.history, makers: makersHandler.getActiveMakers(data.makers)}));
       });
