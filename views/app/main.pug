@@ -17,28 +17,25 @@ block main
               p #{today} has made coffee today.
             else
               p Today #{today} makes coffee!
-              p Choose an option!
               if incorrectPassword==true
                   p(class="txt-error") You entered an incorrect password :(
-              button(class="btn-choice choice-okay" onclick="showMarker()")
-                i(class="fas fa-check")    
-                text Mark that #{today} made coffee today
-              form(id="mark" action=("/main/mark?today=" + today) method="post")
-                input(type="password" name="password" placeholder= (today + "'s password") required)
-                input(type="submit" value= today + " has made coffee")
-              button(class="btn-choice choice-wrong" onclick="whatIfSomeoneCant()")
-                i(class="fas fa-times")    
-                text #{today} can't make coffee
-              button(class="btn-choice choice-caution" onclick="showMarkerForSomeoneElse()")
-                i(class="fas fa-exclamation")    
-                text Someone else is making coffee today
-              form(id="mark-someone-else" action=("/main/mark") method="post" style="padding: 0;")
-                select(name="name")
-                  each maker in makers
-                    if maker.name != today
-                      option(value=maker.name) #{maker.name}
-                input(type="password" name="password" placeholder= ("Password") required)
-                input(type="submit" value= "Someone else has made coffee")
+              if loggedMaker == today
+                button(class="btn-choice choice-okay" onclick="showMarker()")
+                  i(class="fas fa-check")    
+                  text I made coffee today
+                form(id="mark" action=("/main/mark?today=" + today) method="post")
+                  input(type="password" name="password" placeholder= (today + "'s password") required)
+                  input(type="submit" value= today + " has made coffee")
+              if loggedMaker != today
+                button(class="btn-choice choice-wrong" onclick="whatIfSomeoneCant()")
+                  i(class="fas fa-times")    
+                  text #{today} can't make coffee
+                button(class="btn-choice choice-caution" onclick="showMarkerForSomeoneElse()")
+                  i(class="fas fa-exclamation")    
+                  text I offer to make coffee today
+                form(id="mark-someone-else" action=("/main/mark") method="post" style="padding: 0;")
+                  input(type="password" name="password" placeholder="Enter your password" required)
+                  input(type="submit" value= "I made coffee today")
       
       div(id="calendar")
         div(style="display:flex; justify-content: space-around;")
@@ -64,6 +61,9 @@ block main
           tr(id="week4")
           tr(id="week5")
           tr(id="week6")
+        br
+        center
+          strong Coming soon: See who makes coffee in the next days.
     button(id="show-makers" onclick="showMakers()")
       text M
       text A
