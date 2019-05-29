@@ -10,7 +10,7 @@ html(lang="en")
          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
          crossorigin="anonymous")
-    link(href='/css/style.css', rel='stylesheet') 
+    link(href='/css/account-login.css', rel='stylesheet') 
     
   body
   
@@ -21,7 +21,7 @@ html(lang="en")
       
     main
       div(class="container" id="container")              
-        div(class="form-container sign-in-container")
+        div
           form(class="height-100" action="/loginIntoAccount?account="+account.name+"&accountUrl="+account.url, method="post")
             h1(class="h1-login-signup") Log in to
             h2.account= account.name
@@ -30,3 +30,10 @@ html(lang="en")
             input(class="width-100" name="username" type="text" placeholder="Maker's name" required)
             input(class="width-100" name="password" type="password" placeholder="Maker's password" required)
             input(class="width-100" type="submit" value="Log In")
+            
+        div
+          form(class="height-100" action="/signup-maker?account="+account.name+"&accountUrl="+account.url, method="post" autocomplete="off")
+            h1(class="h1-login-signup") Sign up as a maker for #{account.name}
+            input(class="width-100" name="maker" type="text" placeholder="Your name (will be your username)" required)
+            input(class="width-100" name="password" type="password" placeholder="Your password" required)
+            input(class="width-100" type="submit" value="Sign Up") 

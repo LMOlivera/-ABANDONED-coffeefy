@@ -75,6 +75,32 @@ module.exports = function (app, loggedTrue) {
     }
   });
   
+  app.post("/signup-maker", loggedTrue, (req, res)=>{
+    if (req.query.accountUrl==undefined || req.query.accountUrl == "undefined") {
+      res.redirect("/login-signup");
+    }else{
+      Account.findOne({ accountUrl: req.query.accountUrl})
+      .exec((err, data) =>{
+        if(err || data==null || data.length==0) {
+          console.log("Error: " + err);
+          res.redirect('/login-signup/?exists=false');
+        }else{
+          
+          data.makers.push({name: req.body.maker, password: req.body.password, active: true, times: 0, admin: false});
+            Account.findOneAndUpdate({accountUrl: req.query.accountUrl},
+                                     {makers: data.makers},
+                                     (err, data)=>{
+              if (err) {
+                console.log(err);
+              }else{
+                res.redirect('/account-login?account='+req.query.accountUrl);
+              }
+            });
+        }
+      });
+    }
+  });
+  
   //To do
   app.post("/loginIntoAccount", loggedTrue, (req, res)=>{
     let maker = {name: req.body.username, password: req.body.password};
@@ -87,9 +113,18 @@ module.exports = function (app, loggedTrue) {
       }else if(accData == null || accData.length == 0){
         res.redirect('/account-login?error=true&account=' + req.query.accountUrl);
       }else{
+        let position = accData.makers.map((x)=>{return x.name}).indexOf(maker.name);
         req.session.loggedIn = true;
         req.session.account = accData;
-        req.session.admin = accData.makers[accData.makers.map((x)=>{return x.name}).indexOf(maker.name)].admin;
+        req.session.admin = accData.makers[position].admin;
+        req.session.maker = accData.makers[position].name;
+        if (accData.makers[position].active == false) {
+          accData.makers[position].active = true;
+          Account.findOneAndUpdate({accountUrl: req.query.accountUrl},
+                                   {makers: accData.makers},
+                                   (err, data)=>{ 
+          });
+        }
         res.redirect('/main');
       }
     });

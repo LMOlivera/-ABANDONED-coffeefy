@@ -218,7 +218,7 @@ function showMarker() {
 }
 
 function whatIfSomeoneCant() {
-  alert("If someone can't make coffee you have two options. The first one is that if that person will be unable to make coffee in a while, you should go to 'manage makers' and deactivate him/her, you can activate the maker later. If it's something more specific, someone else can make coffee and use the 'someone else offer to maker cofee instead' button.");
+  alert("WIP");
 }
 
 function showMarkerForSomeoneElse() {

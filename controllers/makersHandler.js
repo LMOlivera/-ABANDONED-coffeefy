@@ -55,7 +55,6 @@ function makersController() {
   this.getNextMaker = function(makers, maker) {
     let index = this.getIndexOfMaker(makers, maker);
     if (index==-1) {
-      //WHAT DO?
     }else{
       if (index+1>makers.length-1) {
         return makers[0].name;
@@ -85,9 +84,8 @@ function makersController() {
       last = "no";
       today = "body";
     }else if (data.last.date == undefined) { //First 'mark' to be done
-      last = "nobody";        
-      let makersName = makers[0].name;
-      today = makersName.slice(2, makersName.length);
+      last = "nobody";
+      today = makers[0].name;
     }else{ //???
       let tDate = new Date();
       tDate.setHours(0,0,0,0);
@@ -165,7 +163,7 @@ function makersController() {
     });    
   }
   this.POSTMaker = function(req, callback) {
-    Account.findOne({username: req.session.user['username']})
+    Account.findOne({username: req.session.account['username']})
       .exec((err, data)=> {
       if (err) {
         console.log(err);
@@ -177,7 +175,7 @@ function makersController() {
         switch(req.body.action) {
           case "add":
             data.makers.push({name: mName, password: mPassword, active: true, times: 0, admin: false});
-            Account.findOneAndUpdate({username: req.session.user['username']},
+            Account.findOneAndUpdate({username: req.session.account['username']},
                                      {makers: data.makers},
                                      (err, data)=>{
               if (err) {
@@ -196,7 +194,7 @@ function makersController() {
               makers.push(maker);
             });
             let maker = {name: mName, password: mPassword};
-            Account.findOneAndUpdate({username: req.session.user['username'],
+            Account.findOneAndUpdate({username: req.session.account['username'],
                                      "makers.name": {"$in": [maker.name]},
                                      "makers.password": {"$in": [maker.password]}},
                                      {makers: makers},
@@ -215,7 +213,7 @@ function makersController() {
                 makers.push(maker);
               }
             })    
-            Account.findOneAndUpdate({username: req.session.user['username']},
+            Account.findOneAndUpdate({username: req.session.account['username']},
                                      {makers: makers},
                                      (err, data)=>{
                 (err ? callback(1) : callback(0));
