@@ -106,7 +106,7 @@ main {
   height: 80%;
   padding: 2vw;
   display: grid;
-  grid-template-columns: 3fr 3fr;
+  grid-template-columns: 2fr 2fr;
 }
 
 .title {
@@ -136,6 +136,15 @@ main {
   margin: auto;
   width: 80%;
   height: 80%;
+}
+
+#card2image {
+  min-height: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FAN111-Friends-Coffee-732x549-thumb.jpg?1559245511268');
 }
 
 #section-2 {
