@@ -6,6 +6,7 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
 let Schema = mongoose.Schema;
 let accountSchema = new Schema({
   username: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
   accountUrl: {type: String, required: true, unique: true},
   sortingMode: {type: String, required: true},  //List for know, "times" will take some time to come
   makers: [{

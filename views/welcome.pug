@@ -22,9 +22,12 @@ html(lang="en")
               a(href="/" onclick="alert('This icon will be recolored to match with the UI')")
                 img(id="nav-logo" src="https://cdn.glitch.com/eb2d7dec-04ef-480d-8616-087d63d88275%2FCoffee.ico?1556809358242")
             li
-              button(class="btn-not-relevant") Features
+              a(href="#section-2")
+                button(class="btn-not-relevant") Features
+                
             li
-              button(class="btn-not-relevant") Testimonies
+              a(href="#section-3") 
+                button(class="btn-not-relevant") Testimonies
         div(id="nav-right")
           a(href="/login-signup")
             button(class="btn-relevant") Log-in/Sign-up
@@ -111,6 +114,6 @@ html(lang="en")
             i(class="fab fa-free-code-camp fa-3x side-margin")
           
         div
-          button(class="btn-not-relevant") Terms of service
-          button(class="btn-not-relevant") Privacy
-          button(class="btn-not-relevant") GDPR
+          button(class="btn-not-relevant" tooltip-position="top" tooltip="I don't work, we are just part of the scenery") Terms of service
+          button(class="btn-not-relevant" tooltip-position="top" tooltip="I don't work, we are just part of the scenery") Privacy
+          button(class="btn-not-relevant" tooltip-position="top" tooltip="I don't work, we are just part of the scenery") GDPR

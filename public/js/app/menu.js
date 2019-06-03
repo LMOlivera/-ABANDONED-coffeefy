@@ -3,7 +3,6 @@
 let nav = document.getElementById("nav");
 var navBtns = nav.getElementsByClassName("nav-btn");
 
-console.log(navBtns.length);
 if(navBtns.length == 4) {
   switch(window.location.toString()) {
     case "https://coffeefy.glitch.me/main":
