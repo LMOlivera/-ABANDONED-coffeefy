@@ -33,7 +33,8 @@ html(lang="en")
                 //a(href="#" class="social")
                 //  i(class="fab fa-linkedin-in")
               //span or use your email for registration
-              input(class="width-100" name="username" type="text" placeholder="Account name" required)
+              input(class="width-100" name="username" type="text" placeholder="Account's name" required)
+              input(class="width-100" name="accPassword" type="text" placeholder="Account's password" required)
               label Choose a sorting mode:
                 select(name="mode" style="display: inline-block;" required)
                   option(value="list") List order
@@ -46,13 +47,14 @@ html(lang="en")
             form(class="height-100" action="/signin", method="post")
               h1(class="h1-login-signup") Go to account
               if exists==false
-                p(class="txt-error") The Account just entered is wrong :(
+                p(class="txt-error") The Account entered was wrong :(
               //div(class="social-container")
                 //  a(href="#" class="social")
                   //  i(class="fab fa-facebook-f")
                 //  a(href="#" class="social")
                   //  i(class="fab fa-linkedin-in")
-              input(class="width-100" name="username" type="text" placeholder="Username" required)
+              input(class="width-100" name="username" type="text" placeholder="Account's name" required)
+              input(class="width-100" name="password" type="password" placeholder="Account's password" required)
               input(class="width-100" type="submit" value="Go to Account's login")
               
           div(class="overlay-container")

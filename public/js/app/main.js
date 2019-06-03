@@ -1,28 +1,17 @@
+/*  
+*  The order of files is:
+*  - month-information.js
+*  - main.js
+*  - interaction.js
+*/
 'use strict';
 let data;
 
-function getMonth(monthNumber) {
-  let months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-  return months[monthNumber];
-}
-function getNumberOfMonth(month) {
-  let months = {'January' : '0', 'February' : '1', 'March' : '2', 'April' : '3', 'May' : '4', 'June' : '5',
-                'July' : '6', 'August' : '7', 'September' : '8', 'October' : '9', 'November' : '10', 'December' : '11'};
-  return months[month.toString()];
+function requestError() {
+  document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
 }
 
-function getFirstDayOfMonth(actualDay, actualDayOfWeek) {
-  while(actualDay != 0) {
-    actualDay--;
-    (actualDayOfWeek==0 ? actualDayOfWeek = 6 : actualDayOfWeek--)
-  }
-  return actualDayOfWeek;
-}
-function getLastDayOfMonth(y,m){
-  return new Date(y, m +1, 0).getDate();
-}
-
-//This gets the maker and ONLY the DATE of making
+//This gets the maker and the date of making
 function getSpecificHistory(year, month) {
   let makers = [];
   let h = data.history;
@@ -39,6 +28,7 @@ function getSpecificHistory(year, month) {
   return makers;
 }
 
+//This function could use some serious refactor
 function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfWeek) {
   let firstDay = getFirstDayOfMonth(actualDay, actualDayOfWeek);
   let history = getSpecificHistory(actualYear, actualMonth);
@@ -59,7 +49,6 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
   }catch(e){
     listField = 0;
   }
-  console.log(makersList[listField].name);
   //////////////////////////////////////  
   
   //There must be a way of mergin weeks together
@@ -180,7 +169,7 @@ function getHistory() {
       data = JSON.parse(this.response);    
       if (request.status >= 200 && request.status < 400) {
         if (data == {error: "error"}) {
-          document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
+          requestError();
         }else{
           let d = new Date();
           d.setHours(0,0,0,0);
@@ -190,67 +179,13 @@ function getHistory() {
           organizeDaysInCalendar(dateObject.year, dateObject.month, dateObject.day, dateObject.dayOfWeek);
         }
       } else {
-        document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
+        requestError();
       }
     }catch(e){
-      document.getElementById('calendar').innerText = "Error ocurred when trying to get data from server, so you can't see the calendar :(";
+      requestError();
     }    
   }
   request.send();
 }
-
-
-//Interactions
-function showMakers() {
-  let box = document.getElementById("makers-box").style;
-  if (box.width=="0px"|| box.width=='') {
-    box.width = "200px";
-    box.padding = "2vw";
-  }else{
-    box.width = "0";
-    box.padding = "0";
-  }
-}
-
-function showMarker() {
-  let box = document.getElementById("mark").style;
-  ((box.display=="none"|| box.display=='') ? box.display="block" : box.display="none");
-}
-
-function whatIfSomeoneCant() {
-  alert("WIP");
-}
-
-function showMarkerForSomeoneElse() {
-  let box = document.getElementById("mark-someone-else").style;
-  ((box.display=="none"|| box.display=='') ? box.display="block" : box.display="none");
-}
-
-function truncateTable() {
-  for(let i = 0; i < 6; i++) {
-    document.getElementById('week' + (i+1)).innerText = "";
-  }
-}
-
-function changeMonth(value) {
-  let monthNumber = getNumberOfMonth(document.getElementById('month').innerText);
-  if (value == -1 && monthNumber !=0) {
-    monthNumber--;
-  }else if(value == 1 && monthNumber !=11){
-    monthNumber++;    
-  }
-  document.getElementById('month').innerText = getMonth(monthNumber);
-  truncateTable();
-  let d = new Date(document.getElementById('year').innerText,monthNumber, 1);
-  organizeDaysInCalendar(d.getFullYear(), d.getMonth(), d.getDate(), d.getDay());
-}
-
-function changeYear(value) {
-  let year = parseInt(document.getElementById('year').innerText);
-  (value == -1 && year !=0 ? year-- : year++)
-  document.getElementById('year').innerText = year;
-  changeMonth(0);
-}
-//////////////
 
 getHistory();

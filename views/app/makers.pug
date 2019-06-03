@@ -8,6 +8,7 @@ block main
         each maker in makers
           li.maker= maker.name + ": Currently " + maker.active
     div(class="width-50")
+      p This page will change to only show the current logged user.
       form(id="add-maker" method="POST" action="/main/makers" autocomplete="off")
         input(class="width-100" type="text" name="newMaker" placeholder="Maker's name" style="padding: 0px;" required autofocus)
         input(class="width-100" type="password" name="newPassword" placeholder="Maker's password" style="padding: 0px;" required)

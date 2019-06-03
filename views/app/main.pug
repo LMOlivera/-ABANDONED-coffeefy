@@ -28,8 +28,8 @@ block main
                   input(type="submit" value= today + " has made coffee")
               if loggedMaker != today
                 button(class="btn-choice choice-wrong" onclick="whatIfSomeoneCant()")
-                  i(class="fas fa-times")    
-                  text #{today} can't make coffee
+                  i(class="fas fa-times")     
+                  text #{today} can't make coffee?
                 button(class="btn-choice choice-caution" onclick="showMarkerForSomeoneElse()")
                   i(class="fas fa-exclamation")    
                   text I offer to make coffee today
@@ -79,4 +79,6 @@ block main
         ul
           each maker in makers
             li.maker= maker.name
-  script(src="/js/main.js")
+  script(src="/js/app/month-information.js")
+  script(src="/js/app/main.js")
+  script(src="/js/app/interactions.js")
