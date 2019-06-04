@@ -12,40 +12,51 @@ function requestError() {
 }
 
 //This gets the maker and the date of making
-function getSpecificHistory(year, month) {
+function getSpecificHistory() {
   let makers = [];
   let h = data.history;
   h.forEach((maker)=>{
-    let m = new Date(maker.date).getMonth();
-    let y = new Date(maker.date).getFullYear();
-    let obj = {};
-    if ( m == month &&  y == year) {      
-      obj.name = maker.name;
-      obj.date = new Date(maker.date).getDate();
-      makers.push(obj);
-    }
+    let obj = {};  
+    obj.name = maker.name;
+    obj.date = new Date(maker.date);
+    makers.push(obj);
   });
   return makers;
 }
 
+//Empty days from previous month
+function addEmptyDaysToCalendar(firstDay, emptyDays, week1) {
+  if (firstDay != 6) { //Not Saturday?
+    for(let i = -1; i != firstDay; i++) {
+      let td = document.createElement('td');
+      week1.appendChild(td);
+      emptyDays++;
+    }
+    return emptyDays
+  } else {
+    return 0;
+  }
+}
+
 //This function could use some serious refactor
 function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfWeek) {
-  let firstDay = getFirstDayOfMonth(actualDay, actualDayOfWeek);
-  let history = getSpecificHistory(actualYear, actualMonth);
-  let makersList = data.makers;
-  let emptyDays = 0;
-  let days = 1;
+  let emptyDays = 0; //Days before First day of month
+  let firstDay = getFirstDayOfMonth(actualDay, actualDayOfWeek); //First day of week in current month
+  let days = 1; //Number of days in month
   let lastDayMade;
-  //I can't remember why I did this :c
-  try{
-    lastDayMade = history[history.length-1].date+1;  
-  }catch(e){
+  let today = new Date();
+  
+  let history = getSpecificHistory();
+  let makersList = data.makers;   
+    
+  try{//Assigns last day made
+    lastDayMade = history[history.length-1];
+  }catch(e){ //Executes when there is no history
     lastDayMade = 0;
   }
-  let obj = history.find(maker => maker.date+1 == lastDayMade);
   let listField;
   try{
-    listField = makersList.indexOf(obj.name)+1;
+    listField = makersList.map(maker => maker.name).indexOf(lastDayMade.name)+1;
   }catch(e){
     listField = 0;
   }
@@ -53,39 +64,19 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
   
   //There must be a way of mergin weeks together
   let week1 = document.getElementById('week1');
-  //Empty days from previous month
-  if (firstDay != 6) { //Not Saturday?
-    for(let i = -1; i != firstDay; i++) {
-      let td = document.createElement('td');
-      week1.appendChild(td);
-      emptyDays++;
-    }
-  } else {
-    emptyDays = 0;
-  }
   
+  emptyDays = addEmptyDaysToCalendar(firstDay, emptyDays, week1);
   //Week 1
   for(let i = emptyDays; i != 7; i++) {
     let td = document.createElement('td');
     let day = document.createTextNode(i - (emptyDays-1));
     td.appendChild(day);
-    if(days > lastDayMade && days >= actualDay) {
-      //This is not working well
-      let name = makersList[listField].name;
-      td.onclick = () => alert("This day " + name + " has to make coffee.");
-      if (listField>=makersList.length-1) {
-        listField = 0;
-      }else {
-        listField++;
-      }
-    }else{
-      for (let a = 0; a < history.length; a++) {
-        if (history[a].date+1 == days) {
-          let name = history[a].name;
-          td.className += "txt-made";
-          td.setAttribute("tooltip", name.toString());
-          td.setAttribute("tooltip-position", "top");
-        }
+    for (let a = 0; a < history.length; a++) {
+      if (history[a].date.getDate()+1 == days && history[a].date.getMonth() == actualMonth && history[a].date.getFullYear() == actualYear) {
+        let name = history[a].name;
+        td.className += "txt-made";
+        td.setAttribute("tooltip", name.toString());
+        td.setAttribute("tooltip-position", "top");
       }
     }
     week1.appendChild(td);
@@ -99,23 +90,12 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
       let td = document.createElement('td');
       let day = document.createTextNode(days);
       td.appendChild(day);
-      if(days > lastDayMade && days >= actualDay) {
-        //This is not working well
-        let name = makersList[listField].name;
-        td.onclick = () => alert("This day " + name + " has to make coffee.");
-        if (listField>=makersList.length-1) {
-          listField = 0
-        }else {
-          listField++
-        }
-      }else{
-        for (let a = 0; a < history.length; a++) {
-          if (history[a].date+1 == days) {
-            let name = history[a].name;
-            td.className += "txt-made";
-            td.setAttribute("tooltip", name.toString());
-            td.setAttribute("tooltip-position", "top");
-          }
+      for (let a = 0; a < history.length; a++) {
+        if (history[a].date.getDate()+1 == days && history[a].date.getMonth() == actualMonth && history[a].date.getFullYear() == actualYear) {
+          let name = history[a].name;
+          td.className += "txt-made";
+          td.setAttribute("tooltip", name.toString());
+          td.setAttribute("tooltip-position", "top");
         }
       }
       week.appendChild(td);
@@ -132,23 +112,12 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
       let td = document.createElement('td');
       let day = document.createTextNode(days);
       td.appendChild(day);
-      if(days > lastDayMade && days >= actualDay) {
-        //This is not working well
-        let name = makersList[listField].name;
-        td.onclick = () => alert("This day " + name + " has to make coffee.");
-        if (listField>=makersList.length-1) {
-          listField = 0
-        }else {
-          listField++
-        }
-      }else{
-        for (let a = 0; a < history.length; a++) {
-          if (history[a].date+1 == days) {
-            let name = history[a].name;
-            td.className += "txt-made";
-            td.setAttribute("tooltip", name.toString());
-            td.setAttribute("tooltip-position", "top");
-          }
+      for (let a = 0; a < history.length; a++) {
+        if (history[a].date.getDate()+1 == days && history[a].date.getMonth() == actualMonth && history[a].date.getFullYear() == actualYear) {
+          let name = history[a].name;
+          td.className += "txt-made";
+          td.setAttribute("tooltip", name.toString());
+          td.setAttribute("tooltip-position", "top");
         }
       }
       week.appendChild(td);
@@ -161,6 +130,7 @@ function organizeDaysInCalendar(actualYear, actualMonth, actualDay, actualDayOfW
   }
 }
 
+//Executes when page loads
 function getHistory() {  
   let request = new XMLHttpRequest();
   request.open('GET', '/api/calendar', true);

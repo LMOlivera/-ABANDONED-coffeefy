@@ -249,3 +249,17 @@ td {
   cursor: pointer;
 }
 
+#settings{
+  padding: 2vw;
+}
+
+#settings form {
+  padding: 1vw;
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-form {
+  justify-content: space-around;
+}
