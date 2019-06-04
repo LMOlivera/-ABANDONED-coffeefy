@@ -3,4 +3,30 @@ extends app-template.pug
 block main
   main
     div(class="container" id="container")
-      p Coming soon: Account settings to change account's password, sorting mode, days off, new admin or delete the account. Also, manipulate makers.
+      div(id="settings")
+        if admin==true
+          text Coming soon: Account settings to change account's password, sorting mode, days off, new admin or delete the account. Also, manipulate makers.
+            p Account's settings
+              form
+                p To be defined
+        br
+        br
+        p #{loggedMaker}'s settings
+        form
+          div
+            text Change name:
+            input(placeholder="Insert new name")
+            button() Save
+          br
+          div
+            text Change password:
+            input(type="password" placeholder="Insert new password")
+            button() Save
+          br
+        form()
+          p Are you sick or going on vacation?
+          input(type="submit" value="Deactivate me temporarily")
+        form()
+          p Are you abandoning the group or trying to stop drinking coffee?
+          input(type="submit" value="Delete me permanently")
+  script(src="/js/app/settings.js")

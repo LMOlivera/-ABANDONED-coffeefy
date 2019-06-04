@@ -16,5 +16,19 @@ module.exports = function (app) {
     }catch(e){
       res.json({error: "error"});
     }
-  });    
+  });
+  
+  //Make new routes for setting
+  app.route('/api/settings/changeMakersName')
+    .post(function (req, res){
+    try{
+      /*Account.findOne({username: req.session.account['username']})
+        .exec((err, data)=> {        
+        (err ? res.json({error: "error"}) : res.json({history: data.history, makers: makersHandler.getActiveMakers(data.makers)}));
+      });*/
+    }catch(e){
+      console.log(e);
+      res.json({error: "error"});
+    }
+  });  
 };
