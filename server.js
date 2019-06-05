@@ -12,6 +12,7 @@ const api          = require('./routes/api.js');
 app.set('view engine', 'pug'); //Set template engine
 app.use(express.static(path.join(__dirname, '/public'))); //Set CSS path
 app.use(bodyParser.urlencoded({ extended: true })); //For post request
+app.use(bodyParser.json()); //For post request
 
 //Security
 app.use(helmet());

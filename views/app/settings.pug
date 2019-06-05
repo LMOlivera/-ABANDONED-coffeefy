@@ -12,21 +12,24 @@ block main
         br
         br
         p #{loggedMaker}'s settings
-        form
-          div
-            text Change name:
-            input(placeholder="Insert new name")
-            button() Save
+        div
+          text Change name:
+          input(id="makerName" placeholder="Insert new name")
+          button(onclick="saveNewName()") Save         
+        br
+        div
+          text Change password:
+          input(id="makerPassword" type="password" placeholder="Insert new password")
+          button(onclick="saveNewPassword()") Save
+        br
+        p Are you sick or going on vacation?
           br
-          div
-            text Change password:
-            input(type="password" placeholder="Insert new password")
-            button() Save
           br
-        form()
-          p Are you sick or going on vacation?
-          input(type="submit" value="Deactivate me temporarily")
-        form()
-          p Are you abandoning the group or trying to stop drinking coffee?
-          input(type="submit" value="Delete me permanently")
+          button(onclick="deactivateMaker()") Deactivate me temporarily
+        p(id="deleteAccount") Are you abandoning the group or trying to stop drinking coffee?
+          br
+          br
+          button(onclick="caution()") Delete my account permanently?
+          p(id="caution" style="display: none;") Are you really sure you want to delete your account? This cannot be changed later...
+            button(onclick="deleteMaker()") Yes, delete my account permanently
   script(src="/js/app/settings.js")
