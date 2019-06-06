@@ -2,34 +2,65 @@ extends app-template.pug
 
 block main
   main
-    div(class="container" id="container")
-      div(id="settings")
-        if admin==true
-          text Coming soon: Account settings to change account's password, sorting mode, days off, new admin or delete the account. Also, manipulate makers.
-            p Account's settings
-              form
-                p To be defined
-        br
-        br
-        p #{loggedMaker}'s settings
-        div
-          text Change name:
-          input(id="makerName" placeholder="Insert new name")
-          button(onclick="saveNewName()") Save         
-        br
-        div
-          text Change password:
-          input(id="makerPassword" type="password" placeholder="Insert new password")
-          button(onclick="saveNewPassword()") Save
-        br
-        p Are you sick or going on vacation?
-          br
-          br
-          button(onclick="deactivateMaker()") Deactivate me temporarily
-        p(id="deleteAccount") Are you abandoning the group or trying to stop drinking coffee?
-          br
-          br
-          button(onclick="caution()") Delete my account permanently?
-          p(id="caution" style="display: none;") Are you really sure you want to delete your account? This cannot be changed later...
-            button(onclick="deleteMaker()") Yes, delete my account permanently
+    div(id="settings")
+      if admin==true
+        span
+          div(class="form-style-7")
+            h1 Account's settings
+            ul
+              li
+                label New name
+                br
+                div(class="div-input-button")
+                  input(id="" type="text" name="accountName" maxlength="100")
+                  button(class="btn-save-settings") Update
+                span Will change the URL for the account!
+              li
+                label New password
+                br
+                div(class="div-input-button")
+                  input(id="" type="text" name="accountPassword" maxlength="100")
+                  button(class="btn-save-settings") Update
+                span Your makers will need the new account!
+              h1(style="color:red;") DANGER ZONE
+              li
+                label Delete (entire) account
+                br
+                center
+                  button(class="btn-important-settings-orange") Delete my (entire) account permanently?
+                p(style="display: none;") Are really sure you want to delete your (entire) account?
+                  text This cannot be changed later...
+                  button(class="btn-important-settings-red") Yes, delete my (entire) account permanently
+      span
+        div(class="form-style-7")
+          h1 #{loggedMaker}'s settings
+          ul
+            li
+              label(for="name") New name
+              br
+              div(class="div-input-button")
+                input(id="makerName" type="text" name="name" maxlength="100")
+                button(class="btn-save-settings" onclick="saveNewName()") Update
+              span Enter your new name here
+            li
+              label(for="password") New password
+              br
+              div(class="div-input-button")
+                input(id="makerPassword" type="password" name="password" maxlength="100")
+                button(class="btn-save-settings" onclick="saveNewPassword()") Update
+              span Enter your new password here              
+            li
+              label I'm sick / on vacation
+              br
+              center
+                button(class="btn-important-settings-orange" onclick="deactivateMaker()") Deactivate me temporarily
+            h1(style="color:red;") DANGER ZONE
+            li
+              label Abandon the group / stop drinking coffee
+              br
+              center
+                button(class="btn-important-settings-orange" onclick="caution()") Delete my (maker) account permanently?
+              p(id="caution" class="btn-important-settings" style="display: none;") Are you really sure you want to delete your (maker) account?
+                text This cannot be changed later...
+                button(class="btn-important-settings-red" onclick="deleteMaker()") Yes, delete my (maker) account permanently
   script(src="/js/app/settings.js")
