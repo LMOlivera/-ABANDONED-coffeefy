@@ -33,7 +33,7 @@ block main
                 button(class="btn-choice choice-caution" onclick="showMarkerForSomeoneElse()")
                   i(class="fas fa-exclamation")    
                   text I offer to make coffee today
-                form(id="mark-someone-else" action=("/main/mark") method="post" style="padding: 0;")
+                form(id="mark-someone-else" action=("/main/mark?today="+loggedMaker) method="post" style="padding: 0;")
                   input(type="password" name="password" placeholder="Enter your password" required)
                   input(type="submit" value= "I made coffee today")
       
