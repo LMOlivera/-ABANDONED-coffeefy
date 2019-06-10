@@ -113,16 +113,14 @@ function makersController() {
       maker = {name: req.query.today, password: req.body.password}
     }
     
-    console.log(req.body.name);
-    console.log(req.body.password);
-    Account.findOneAndUpdate({username: req.session.account['username'],
+    Account.find({username: req.session.account["username"],
                              "makers.name": {"$in": [maker.name]},
                              "makers.password": {"$in": [maker.password]}},
-                             {last: today},
                              (err, accData)=>{
       if (err) {
         callback(0);
       }else{
+        console.log("accData: " + accData);
         if(accData==null){
           callback(1);
         }else{
@@ -150,8 +148,10 @@ function makersController() {
           });*/            
 
           Account.findOneAndUpdate({username: req.session.account['username']},
-                                   {history: history, makers: makers},
+                                   {history: history, makers: makers, last: today},
+                                   {new: true},
                                    (err, data)=>{
+            console.log("err: " + err);
             if(err) {
               callback(1);
             }else{
