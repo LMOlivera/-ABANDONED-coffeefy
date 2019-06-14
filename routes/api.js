@@ -1,6 +1,7 @@
 'use strict';
 //Refactor OK
 let Account = require('../models/Account.js');
+let Fact = require('../models/Fact.js');
 
 let mHandler = require('../controllers/makersHandler.js');
 let makersHandler = new mHandler();
@@ -127,4 +128,10 @@ module.exports = function (app) {
       res.json({error: "error"});
     }
   }); 
+  
+  app.get('/api/fact', (req, res)=>{
+    Fact.find({},(err, data)=>{
+      res.json(data[Math.floor((Math.random()*(data.length-1))+0)]);
+    });    
+  });
 };

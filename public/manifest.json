@@ -1,7 +1,7 @@
 //https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/
 {
-  "name": "who-makes-coffee-today",
-  "short_name": "Coffee-Today",
+  "name": "Coffeefy",
+  "short_name": "Coffeefy",
   "icons": [{
     "src": "/images/icons/icon-128x128.png",
       "sizes": "128x128",
