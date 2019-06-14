@@ -232,6 +232,10 @@ function makersController() {
       }
     });
   }
+  
+  this.getRandomFact = function() {
+    
+  }
 }
 
 module.exports = makersController;

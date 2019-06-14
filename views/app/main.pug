@@ -64,6 +64,14 @@ block main
         br
         center
           strong Coming soon: See who makes coffee in the next days.
+          div(id="fact")
+            h1 Coffee fact
+            p
+              text(id="fact-text")
+              br
+              br
+              text Source: 
+              text(id="fact-source")
     button(id="show-makers" onclick="showMakers()")
       text M
       text A
@@ -82,3 +90,4 @@ block main
   script(src="/js/app/month-information.js")
   script(src="/js/app/main.js")
   script(src="/js/app/interactions.js")
+  script(src="/js/app/fact.js")
