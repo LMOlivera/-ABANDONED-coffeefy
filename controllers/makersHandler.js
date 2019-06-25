@@ -1,6 +1,7 @@
 'use strict';
 // Refactor pending...
 let Account = require('../models/Account.js');
+let Fact = require('../models/Fact.js');
 
 let bcrypt  = require('bcrypt');
 let saltRounds = 12;
@@ -105,12 +106,13 @@ function makersController() {
   this.mark = function(req, callback) {
     let today;
     let maker;
+    let someoneElse = req.query.else;
     if (req.query.today == undefined || req.query.today == null || req.query.today == "") {
       today = {name: req.body.name, date: new Date().toDateString()};
       maker = {name: req.body.name, password: req.body.password};
     }else{
       today = {name: req.query.today, date: new Date().toDateString()};
-      maker = {name: req.query.today, password: req.body.password}
+      maker = {name: req.query.today, password: req.body.password};
     }
     
     Account.findOne({username: req.session.account.username,
@@ -136,15 +138,22 @@ function makersController() {
             }
           });
           
+          //Reorder makers
           let newMakers = [];
-          makers.forEach((m)=>{
-            if (m.name == maker.name) {
-              newMakers.unshift(m);
-            }else{
-              newMakers.push(m);
-            }
-          });
-
+          if(someoneElse) { //If someone else made coffee
+            let todayMaker;
+            makers.forEach((m)=>{
+              if (m.name == maker.name) {
+                todayMaker = m;
+              }else{
+                newMakers.push(m);
+              }
+            });
+            newMakers.reverse();
+            newMakers.unshift(todayMaker);
+          }else{//If the person whose turn was today made coffee
+            newMakers = makers;
+          }
           /*Sort makers by their "times" counter
           makers.sort(( a, b ) => {
             if ( a.times < b.times ){
@@ -160,8 +169,8 @@ function makersController() {
                                    {history: history, makers: newMakers, last: today},
                                    {new: true},
                                    (err, data)=>{
-            console.log("err: " + err);
             if(err) {
+              console.log("err: " + err);
               callback(1);
             }else{
               callback(2);
@@ -233,8 +242,10 @@ function makersController() {
     });
   }
   
-  this.getRandomFact = function() {
-    
+  this.getRandomFact = function(res) {
+    Fact.find({},(err, data)=>{
+      res.json(data[Math.floor((Math.random()*(data.length-1))+0)]);
+    });
   }
 }
 
