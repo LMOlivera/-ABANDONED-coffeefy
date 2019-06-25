@@ -130,8 +130,6 @@ module.exports = function (app) {
   }); 
   
   app.get('/api/fact', (req, res)=>{
-    Fact.find({},(err, data)=>{
-      res.json(data[Math.floor((Math.random()*(data.length-1))+0)]);
-    });    
+    makersHandler.getRandomFact(res);
   });
 };
