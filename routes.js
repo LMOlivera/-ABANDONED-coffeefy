@@ -1,8 +1,7 @@
 'use strict';
 //Refactor OK
 
-//Routes files
-let loginSignup = require('./routes/login-signup.js');
+let loginSignup = require('./routes/login.js');
 let main = require('./routes/main.js');
 
 function loggedTrue(req, res, next) {

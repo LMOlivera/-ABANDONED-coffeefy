@@ -1,6 +1,6 @@
 {
   "name": "coffeefy",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Coffee-making organizer.",
   "main": "server.js",
   "scripts": {
@@ -9,16 +9,16 @@
   "dependencies": {
     "express": "^4.16.4",
     "pug": "^2.0.3",
-    "mongoose": "^5.5.10",
+    "mongoose": "^5.5.12",
     "express-session": "^1.16.1",
     "helmet": "^3.18.0",
     "bcrypt": "^3.0.6"
   },
   "engines": {
-    "node": "8.x"
+    "node": "10.15.3"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "url": "https://github.com/LMOlivera/coffeefy"
   },
   "license": "MIT",
   "keywords": [

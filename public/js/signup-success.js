@@ -1,4 +1,4 @@
 setTimeout( () => {
-  window.location = "/login-signup";
+  window.location = "/login";
   localStorage.clear();
 }, 1500)
