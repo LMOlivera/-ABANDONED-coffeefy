@@ -8,15 +8,17 @@ let saltRounds = 12;
 module.exports = function (app, loggedTrue) {
   
   //Login to Account OR Create Account
-  app.get("/login-signup", loggedTrue, (req, res) => {
-    if (req.query.already == 'true') {
-      res.render(process.cwd() + '/views/login-signup', {already: true});
-    }else if (req.query.exists == 'false') {
-      res.render(process.cwd() + '/views/login-signup', {exists: false});
+  app.get("/login", loggedTrue, (req, res) => {
+    if (req.query.exists == 'false') {
+      res.render(process.cwd() + '/views/login', {exists: false});
     }else{
-      res.render(process.cwd() + '/views/login-signup');
+      res.render(process.cwd() + '/views/login');
     }
   });  
+  
+  app.get('/signup', loggedTrue, (req, res)=>{
+    res.render(process.cwd() + '/views/signup');
+  });
   
   //Create an Account
   app.post('/signup', loggedTrue, (req, res) => {
@@ -27,7 +29,7 @@ module.exports = function (app, loggedTrue) {
                              sortingMode: req.body.mode, makers: makers, last: {}, history: []});
       acc.save((err, data) => {
         if (err){
-          (err.code == 11000 ? res.redirect('login-signup/?already=true') : res.json({error: err}));
+          (err.code == 11000 ? res.redirect('login/?already=true') : res.json({error: err}));
         }else{
           res.render(process.cwd() + '/views/signup-success');
         }
@@ -40,7 +42,7 @@ module.exports = function (app, loggedTrue) {
     Account.findOne({ username: req.body.username, password: req.body.password})
     .exec((err, data) =>{
       if (err || data == null || data.length == 0) {
-         res.redirect('login-signup/?exists=false');
+         res.redirect('login/?exists=false');
       }else{
         res.redirect('/check-account-login?account=' + req.body.username);
       }
@@ -53,7 +55,7 @@ module.exports = function (app, loggedTrue) {
     Account.findOne({ username: req.query.account})
     .exec((err, data) =>{
       bcrypt.compare(check, data.accountUrl, (err, response)=>{
-        res.redirect(response ? ('/account-login?account=' + data.accountUrl) : 'login-signup/?exists=false');
+        res.redirect(response ? ('/account-login?account=' + data.accountUrl) : 'login/?exists=false');
       });
     });
   });
@@ -61,12 +63,12 @@ module.exports = function (app, loggedTrue) {
   //Own login
   app.get("/account-login", loggedTrue, (req, res)=>{
     if (req.query.account==undefined || req.query.account == "undefined") {
-      res.redirect("/login-signup");
+      res.redirect("/login");
     }else{
       Account.findOne({ accountUrl: req.query.account})
       .exec((err, data) =>{
         if(err || data==null || data.length==0) {
-          res.redirect('/login-signup/?exists=false');
+          res.redirect('/login/?exists=false');
         }else{
           let account = {name: data.username, url: data.accountUrl};
           res.render(process.cwd() + "/views/account-login", {account: account, error: (req.query.error ? true : false)});
@@ -77,13 +79,13 @@ module.exports = function (app, loggedTrue) {
   
   app.post("/signup-maker", loggedTrue, (req, res)=>{
     if (req.query.accountUrl==undefined || req.query.accountUrl == "undefined") {
-      res.redirect("/login-signup");
+      res.redirect("/login");
     }else{
       Account.findOne({ accountUrl: req.query.accountUrl})
       .exec((err, data) =>{
         if(err || data==null || data.length==0) {
           console.log("Error: " + err);
-          res.redirect('/login-signup/?exists=false');
+          res.redirect('/login/?exists=false');
         }else{
           
           data.makers.push({name: req.body.maker, password: req.body.password, active: true, times: 0, admin: false});

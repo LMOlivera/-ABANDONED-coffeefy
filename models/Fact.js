@@ -1,8 +1,4 @@
-const mongoose     = require('mongoose');
-
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false)
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
+let mongoose = require('../models/Mongoose.js');
 
 let Schema = mongoose.Schema;
 let factSchema = new Schema({
@@ -12,12 +8,3 @@ let factSchema = new Schema({
 
 //Glitch is giving errors in the next line but is working as it should!
 module.exports = Fact = mongoose.model('Fact', factSchema);
-
-
-
-
-
-
-
-
-

@@ -1,10 +1,10 @@
 Coffeefy
 =================
-We often argue at work about who's turn is to make coffee. With this app, that won't happen anymore!
+We often argue at work about who's turn is it to make coffee. With this app, that won't happen anymore!
 
 ### What you can do
-You create an account in which you will store your coworkers' name, and everyday that person has to confirm he/she made coffee
-so the next day another one is in charge of making it.
+You create an Account in which you will signup your coworkers, and everyday they have to login to the Account
+to confirm who made coffee, so the next day another one is in charge of making it.
 
 Technology used
 ------------

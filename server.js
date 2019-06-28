@@ -9,7 +9,7 @@ const helmet       = require('helmet');
 const routes       = require('./routes.js');
 const api          = require('./routes/api.js');
 
-app.set('view engine', 'pug'); //Set template engine
+app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, '/public'))); //Set CSS path
 app.use(bodyParser.urlencoded({ extended: true })); //For post request
 app.use(bodyParser.json()); //For post request
@@ -26,11 +26,9 @@ app.use(session({secret: process.env.SESSION_SECRET,
                  saveUninitialized: true}));
 
 //Routes
-api(app); //This first or 404 Error
+api(app);
 routes(app);
 
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-
-//https://www.cypress.io/ for testing?

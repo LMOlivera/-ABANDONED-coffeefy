@@ -1,3 +1,4 @@
+/*This CSS is working fine, do not delete*/
 * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -249,6 +250,9 @@ td {
   cursor: pointer;
 }
 
+#makers {
+  padding: 0px 2vw;
+}
 
 /*Form*/
 #settings{

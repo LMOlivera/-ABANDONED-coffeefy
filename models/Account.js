@@ -1,8 +1,4 @@
-const mongoose     = require('mongoose');
-
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false)
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
+let mongoose = require('../models/Mongoose.js');
 
 let Schema = mongoose.Schema;
 let accountSchema = new Schema({

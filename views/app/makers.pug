@@ -2,16 +2,17 @@ extends app-template.pug
 
 block main
   main
-    h1 Makers
-    div(id="makers-list")
-      ul
-        each maker in makers
-          li.maker= maker.name + ": Currently " + maker.active
-    div(class="width-50")
-      p This page will show ONLY makers data (except password). Admin will be able to deactivate and delete makers.
-      form(id="add-maker" method="POST" action="/main/makers" autocomplete="off")
-        input(class="width-100" type="text" name="newMaker" placeholder="Maker's name" style="padding: 0px;" required autofocus)
-        input(class="width-100" type="password" name="newPassword" placeholder="Maker's password" style="padding: 0px;" required)
-        input(class="width-100" type="submit" name="action" value="add")
-        input(class="width-100" type="submit" name="action" value="changeActive")
-        input(class="width-100" type="submit" name="action" value="delete")
+    div(id="makers")
+      h1 Makers
+      div(id="makers-list")
+        ul
+          each maker in makers
+            li.maker= maker.name + ": Currently " + maker.active
+      div(class="width-50")
+        p This page will show ONLY makers data (except password). Admin will be able to deactivate and delete makers.
+        form(id="add-maker" method="POST" action="/main/makers" autocomplete="off")
+          input(class="width-100" type="text" name="newMaker" placeholder="Maker's name" style="padding: 0px;" required autofocus)
+          input(class="width-100" type="password" name="newPassword" placeholder="Maker's password" style="padding: 0px;" required)
+          input(class="width-100" type="submit" name="action" value="add")
+          input(class="width-100" type="submit" name="action" value="changeActive")
+          input(class="width-100" type="submit" name="action" value="delete")
