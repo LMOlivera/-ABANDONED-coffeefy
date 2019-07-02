@@ -10,26 +10,20 @@ html(lang="en")
          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
          crossorigin="anonymous")
-    link(href='/css/login.css', rel='stylesheet')         
-    script(src="/js/login.js" defer)
-    
+    link(href='/css/login.css', rel='stylesheet')             
   body
-  
-    header
-      center
-        h1 Coffeefy
-        p No more arguments in your office!
-      
     main
-      div(class="container" id="container")
-        div(class="form-container sign-in-container")
-          form(class="height-100" action="/signin", method="post")
-            h1(class="h1-login-signup") Go to account
-            if exists==false
-              p(class="txt-error") The Account entered was wrong :(
-            input(class="width-100" name="username" type="text" placeholder="Account's name" required)
-            input(class="width-100" name="password" type="password" placeholder="Account's password" required)
-            input(class="width-100" type="submit" value="Go to Account's login")
-      div()
+      div(id="login-form")
+        center
+          h1 Go to account
+          if exists==false
+            strong(class="txt-error") The Account entered was wrong :(
+            
+        form(action="/signin", method="post")          
+          input(name="username" type="text" placeholder="Account's name" required)
+          br
+          input(name="password" type="password" placeholder="Account's password" required)
+          br
+          input(type="submit" value="Go to Account's login")
         a(href="/signup")
-          button Sign up!
+          button Sign up!      

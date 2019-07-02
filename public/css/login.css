@@ -1,0 +1,50 @@
+:root
+{
+  --bg-light: #F2F1EC;
+  --accent-color: #949C9E;
+  --brand-color: #C15C47;
+  --accent2-color: #9D7C54;
+  --bg-dark: #111111;
+}
+
+*
+{
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;  
+  /*
+  font-weight: 300;
+  line-height: 1.5em;
+  font-size: 14px;  
+  */
+}
+
+body
+{
+  background-color: var(--accent2-color);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+main
+{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+#login-form
+{
+  background-color: var(--bg-light);
+  border-radius: 5px;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
+  height: auto;
+  margin: auto;
+  padding: 2vw;
+  width: 35vw;
+}
+
+.txt-error
+{
+  color: red;
+}
