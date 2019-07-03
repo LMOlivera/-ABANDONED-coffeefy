@@ -15,15 +15,17 @@ html(lang="en")
     main
       div(id="login-form")
         center
-          h1 Go to account
+          h2 Log into an account
           if exists==false
             strong(class="txt-error") The Account entered was wrong :(
-            
-        form(action="/signin", method="post")          
-          input(name="username" type="text" placeholder="Account's name" required)
-          br
-          input(name="password" type="password" placeholder="Account's password" required)
-          br
-          input(type="submit" value="Go to Account's login")
-        a(href="/signup")
-          button Sign up!      
+        center  
+          form(action="/signin", method="post")          
+            input(name="username" type="text" placeholder="Account's name" required)
+            p
+            input(name="password" type="password" placeholder="Account's password" required)
+            p
+            input(type="submit" value="Go to Account's login")
+        center
+          text Don't have an account yet? 
+          a(href="/signup")
+            button Sign up!

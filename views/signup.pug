@@ -1,14 +1,19 @@
-div(class="form-container sign-up-container")
-  form(class="height-100" action="/signup", method="post" autocomplete="off")
-    h1(class="h1-login-signup") Create Account
+div
+  h1 Create Account
+  form(action="/signup", method="post" autocomplete="off")
     if already==true
       p(class="txt-error") The username you just entered is already taken :(
-    input(class="width-100" name="username" type="text" placeholder="Account's name" required)
-    input(class="width-100" name="accPassword" type="text" placeholder="Account's password" required)
+    input(name="username" type="text" placeholder="Account's name" required)
+    br
+    input(name="accPassword" type="text" placeholder="Account's password" required)
+    br
     label Choose a sorting mode:
-      select(name="mode" style="display: inline-block;" required)
+      select(name="mode" required)
         option(value="list") List order
         option(value="times") Times made
-    input(class="width-100" name="maker" type="text" placeholder="Main maker's name" required)
-    input(class="width-100" name="password" type="password" placeholder="Main maker's password" required)
-    input(class="width-100" type="submit" value="Sign Up") 
+    br
+    input(name="maker" type="text" placeholder="Main maker's name" required)
+    br
+    input(name="password" type="password" placeholder="Main maker's password" required)
+    br
+    input(type="submit" value="Sign Up") 
